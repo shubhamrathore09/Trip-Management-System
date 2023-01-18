@@ -10,7 +10,7 @@ public class GlobleExceptionHandler {
 	
 	@ExceptionHandler(LoginException.class)
 	public ResponseEntity<MyError> LoginExceptionHandler(LoginException msg,WebRequest request){
-		
+		return null;
 	}
 	
 }
