@@ -6,6 +6,7 @@ import com.masai.model.CurrentLoginSession;
 
 public interface CurrentSessionRepo extends JpaRepository<CurrentLoginSession, Integer>{
 	
-	public CurrentLoginSession findByMobile(String mobile);
+	public CurrentLoginSession findByUserKey(String userKey);
+	public CurrentLoginSession findByUserMobile(String userMobile);
 	
 }
