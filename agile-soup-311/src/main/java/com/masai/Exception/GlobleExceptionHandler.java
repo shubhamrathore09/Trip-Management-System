@@ -13,4 +13,28 @@ public class GlobleExceptionHandler {
 		return null;
 	}
 	
+	@ExceptionHandler(BookingException.class)
+	public ResponseEntity<MyError> bookingExceptionHandler(BookingException msg, WebRequest request) {
+		MyError error = new MyError();
+		return null;
+	}
+	
+	@ExceptionHandler(PackageException.class)
+	public ResponseEntity<MyError> packagingExceptionHandler(PackageException msg, WebRequest request) {
+		MyError error = new MyError();
+		return null;
+	}
+	
+	@ExceptionHandler(PaymentDetailException.class)
+	public ResponseEntity<MyError> paymentDetailExceptionHandler(PaymentDetailException msg, WebRequest request) {
+		MyError error = new MyError();
+		return null;
+	}
+	
+	@ExceptionHandler(HotelException.class)
+	public ResponseEntity<MyError> hotelExceptionHandler(HotelException msg, WebRequest request) {
+		MyError error = new MyError();
+		return null;
+	}
+	
 }
