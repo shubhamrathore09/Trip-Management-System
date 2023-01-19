@@ -3,6 +3,7 @@ package com.masai.Exception;
 import java.time.LocalDateTime;
 
 import org.springframework.cglib.core.internal.LoadingCache;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,26 +20,37 @@ public class GlobleExceptionHandler {
 	@ExceptionHandler(BookingException.class)
 	public ResponseEntity<MyError> bookingExceptionHandler(BookingException msg, WebRequest request) {
 		MyError error = new MyError();
-		
-		return null;
+		error.setDateTime(LocalDateTime.now());
+		error.setMsg(msg.getMessage());
+		error.setDetails(request.getDescription(false));
+		return new ResponseEntity<MyError>(error, HttpStatus.NOT_FOUND);
 	}
 	
 	@ExceptionHandler(PackageException.class)
 	public ResponseEntity<MyError> packagingExceptionHandler(PackageException msg, WebRequest request) {
 		MyError error = new MyError();
-		return null;
+		error.setDateTime(LocalDateTime.now());
+		error.setMsg(msg.getMessage());
+		error.setDetails(request.getDescription(false));
+		return new ResponseEntity<MyError>(error, HttpStatus.NOT_FOUND);
 	}
 	
 	@ExceptionHandler(PaymentDetailException.class)
 	public ResponseEntity<MyError> paymentDetailExceptionHandler(PaymentDetailException msg, WebRequest request) {
 		MyError error = new MyError();
-		return null;
+		error.setDateTime(LocalDateTime.now());
+		error.setMsg(msg.getMessage());
+		error.setDetails(request.getDescription(false));
+		return new ResponseEntity<MyError>(error, HttpStatus.NOT_FOUND);
 	}
 	
 	@ExceptionHandler(HotelException.class)
 	public ResponseEntity<MyError> hotelExceptionHandler(HotelException msg, WebRequest request) {
 		MyError error = new MyError();
-		return null;
+		error.setDateTime(LocalDateTime.now());
+		error.setMsg(msg.getMessage());
+		error.setDetails(request.getDescription(false));
+		return new ResponseEntity<MyError>(error, HttpStatus.NOT_FOUND);
 	}
 	
 }
