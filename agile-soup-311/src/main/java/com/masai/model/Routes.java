@@ -31,4 +31,6 @@ public class Routes {
 	private String pickupPoint;
 	private Double fare;
 	
+	
+	
 }

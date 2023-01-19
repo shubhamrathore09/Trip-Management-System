@@ -22,4 +22,7 @@ public class PaymentDetail {
 	private Double totalPayment;
 	private Double paidPayment;
 	private String paymentStatus;
+	
+
+	
 }
