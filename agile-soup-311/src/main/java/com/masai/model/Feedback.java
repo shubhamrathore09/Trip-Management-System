@@ -2,13 +2,18 @@ package com.masai.model;
 
 
 
-import java.time.LocalDate;
+import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,8 +39,11 @@ public class Feedback {
 	private Integer rating;
 	
 	@NotNull
-	private LocalDate submitDate;
+	private Date submitDate;
 
-	
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id")
+	private User user;
 	
 }
