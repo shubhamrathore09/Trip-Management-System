@@ -23,8 +23,8 @@ public class Admin {
 	private Integer adminId;
 	
 	private String adminName;
-	@Email
 	
+	@Email
 	private String adminEmail;
 	@Size(min = 6,message = "password length should be more then 6")
 	private String adminPassword;

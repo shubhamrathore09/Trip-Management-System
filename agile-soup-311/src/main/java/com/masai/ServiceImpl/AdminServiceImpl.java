@@ -20,14 +20,15 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public Admin InsertAdmin(Admin admin) throws AdminException {
 		
-//		Admin admin2=adminRepo.findByAdminMobile(admin.getAdminMobile());
+		Admin admin2=adminRepo.findByAdminMobile(admin.getAdminMobile());
 		
-//		if(admin2==null) {
+		if(admin2==null) {
+		
 			return adminRepo.save(admin);
-//		}
-//		
-//		throw new AdminException("admin already present by that number");
-//		
+		}
+		
+		throw new AdminException("admin already present by that number");
+		
 	}
 
 	@Override

@@ -20,8 +20,8 @@ public class GlobleExceptionHandler {
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<MyError>ValidationError(MethodArgumentNotValidException msg,WebRequest request){
-		MyError myError=new MyError(msg.getMessage(), request.getDescription(false), LocalDateTime.now());
+	public ResponseEntity<MyError>ValidationError(MethodArgumentNotValidException msg){
+		MyError myError=new MyError(msg.getBindingResult().getFieldError().getDefaultMessage(), "validation exception", LocalDateTime.now());
 		return new ResponseEntity<MyError>(myError,HttpStatus.BAD_REQUEST);
 	}
 	
