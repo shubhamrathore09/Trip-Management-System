@@ -43,13 +43,5 @@ public class GlobleExceptionHandler {
 		return new ResponseEntity<MyError>(error, HttpStatus.NOT_FOUND);
 	}
 	
-	@ExceptionHandler(HotelException.class)
-	public ResponseEntity<MyError> hotelExceptionHandler(HotelException msg, WebRequest request) {
-		MyError error = new MyError();
-		error.setDateTime(LocalDateTime.now());
-		error.setMsg(msg.getMessage());
-		error.setDetails(request.getDescription(false));
-		return new ResponseEntity<MyError>(error, HttpStatus.NOT_FOUND);
-	}
 	
 }
