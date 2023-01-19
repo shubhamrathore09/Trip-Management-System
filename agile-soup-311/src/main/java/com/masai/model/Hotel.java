@@ -1,28 +1,36 @@
 package com.masai.model;
 
+import lombok.*;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
 @Entity
+@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Hotel {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer hotelId;
-	private String hotelName;
-	private String hotelType;
-	private String hotelDescription;
-	private String address;
-	private Double rent;
-	private String status;
+    private Integer hotelID;
+
+	@Size(min = 1, message = "Hotel name cannot be null")
+    private String hotelName;
+    private String hotelType;
+    private String hotelDescription;
+    private String address;
+	@NotNull(message = "Price should not be negative value")
+	@NotEmpty(message = "Price should not be negative value")
+    private String rent;
+    
+
+
 }

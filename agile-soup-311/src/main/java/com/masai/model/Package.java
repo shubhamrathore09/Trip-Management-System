@@ -1,5 +1,6 @@
 package com.masai.model;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +26,9 @@ public class Package {
 	private String packageDescription;
 	private String packageType;
 	private Double packageCost;
+
 	
-	
+	@Embedded
+	private PaymentDetail paymentDetails;
 	
 }
