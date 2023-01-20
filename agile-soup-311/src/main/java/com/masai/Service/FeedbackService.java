@@ -8,8 +8,7 @@ import com.masai.model.Feedback;
 
 public interface FeedbackService {
 	
-	public Feedback addFeedback(Feedback feedback, String authKey) throws FeedbackException;
-	
+	public Feedback addFeedback(Feedback feedback, String authKey) throws FeedbackException;	
 	
 	public Feedback findByFeedbackId(Integer feedbackId) throws FeedbackException;
 	

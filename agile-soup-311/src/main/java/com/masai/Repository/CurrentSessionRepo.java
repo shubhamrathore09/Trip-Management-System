@@ -13,6 +13,6 @@ public interface CurrentSessionRepo extends JpaRepository<CurrentLoginSession, I
 	public CurrentLoginSession findByUserMobile(String userMobile);
 	
 	
-	@Query("select c from CurrentLoginSession c where c.authKey=?1")
+	@Query("select c from CurrentLoginSession c where c.userKey=?1")
 	public Optional<CurrentLoginSession> findByAuthkey(String key);
 }

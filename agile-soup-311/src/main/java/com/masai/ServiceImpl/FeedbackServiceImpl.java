@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.masai.Exception.FeedbackException;
 import com.masai.Repository.CurrentSessionRepo;
+import com.masai.Repository.CustomerRepo;
 import com.masai.Repository.FeedbackRepository;
 import com.masai.Service.FeedbackService;
 import com.masai.model.CurrentLoginSession;
+import com.masai.model.Customer;
 import com.masai.model.Feedback;
-import com.masai.model.User;
+
 
 
 @Service
@@ -23,10 +25,10 @@ public class FeedbackServiceImpl implements FeedbackService{
 	@Autowired
 	private CurrentSessionRepo currentSessionRepo;
 	
-	//private UserRepo userRepo;
 	
+	@Autowired
+	private CustomerRepo customerRepo;
 	
-
 
 	@Override
 	public Feedback addFeedback(Feedback feedback, String authKey) throws FeedbackException {
@@ -41,15 +43,15 @@ public class FeedbackServiceImpl implements FeedbackService{
 		
 		CurrentLoginSession currentUser = currentUserOptional.get();
 		
-		User user = userRepo.findById(currentLoginSession.getUserId()).get();
+		Customer customer = customerRepo.findById(currentUser.getUserId()).get();
 		
-		if(user.getUserType().equals("admin"))
+		if(customer.getUserType().equals("admin"))
 		{
-			throw new FeedbackException("Only users can give feedback");
+			throw new FeedbackException("Only customers can give feedback");
 		}
 		
 		
-		feedback.setUser(user);
+		feedback.setCustomer(customer);
 		
 		return feedbackRepo.save(feedback);
 	}
@@ -58,7 +60,7 @@ public class FeedbackServiceImpl implements FeedbackService{
 	public Feedback findByFeedbackId(Integer feedbackId) throws FeedbackException {
 
 
-		Optional<Feedback> optFeedback= feedbackRepo.findById(feedbackId);
+		Optional<Feedback> optFeedback = feedbackRepo.findById(feedbackId);
 		
 		if(!optFeedback.isPresent())
 		{
@@ -80,23 +82,24 @@ public class FeedbackServiceImpl implements FeedbackService{
 		
 		CurrentLoginSession currentLoginSession = currentUserOptional.get();
 		
-		User user = userRepo.findById(currentLoginSession.getUserId()).get();
+		Customer customer = customerRepo.findById(currentLoginSession.getUserId()).get();
 		
-		if(user.getUserType().equals("User"))
+		if(customer.getUserType().equals("User"))
 		{
 			throw new FeedbackException("Only admins can access this feature");
 		}
 		
-		Optional<User> userOptional = userRepo.findByUserId(customerId);
+		Optional<Customer> userOptional = customerRepo.findByCustomerId(customerId);
 		
 		if(!userOptional.isPresent())
 		{
 			throw new FeedbackException("No user present with the given customer Id");
 		}
 		
-		User userRequired=userOptional.get();
+		Customer userRequired = userOptional.get();
 		
 		List<Feedback> list = userRequired.getFeedbacks();
+		
 		if(list.size()==0)
 		{
 			throw new FeedbackException("No feedbacks made by the customer");
@@ -107,6 +110,7 @@ public class FeedbackServiceImpl implements FeedbackService{
 
 	@Override
 	public List<Feedback> viewAllFeedbacks(String authKey) throws FeedbackException {
+		
 		 Optional<CurrentLoginSession> currentUserOptional = currentSessionRepo.findByAuthkey(authKey);
 			
 			if(!currentUserOptional.isPresent())
@@ -116,16 +120,16 @@ public class FeedbackServiceImpl implements FeedbackService{
 			
 			CurrentLoginSession currentUserLoginSession=currentUserOptional.get();
 			
-			User user = userRepo.findById(currentUserLoginSession.getUserId()).get();
+			Customer customer = customerRepo.findById(currentUserLoginSession.getUserId()).get();
 			
-			if(user.getUserType().equals("User"))
+			if(customer.getUserType().equals("User"))
 			{
 				throw new FeedbackException("Only admins can access this feature");
 			}
 			
-			List<Feedback> ansList = feedbackRepo.getAllFeedbacks();
+			List<Feedback> feedbackList = feedbackRepo.getAllFeedbacks();
 			
-			return ansList;
+			return feedbackList;
 			
 			
 	}

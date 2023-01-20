@@ -9,15 +9,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+
 public class CurrentLoginSession {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer sessionId;
 	
+	private Integer userId;
+		
 	private String userMobile;
 	
 	private String userKey;
