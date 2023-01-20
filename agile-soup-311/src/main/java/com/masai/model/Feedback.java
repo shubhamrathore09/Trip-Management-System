@@ -36,14 +36,14 @@ public class Feedback {
 	private String feedback;
 	
 	@NotNull
-	private Integer rating;
+	private Double rating;
 	
 	@NotNull
 	private Date submitDate;
 
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id")
-	private User user;
+	
+	private Customer customer;
 	
 }

@@ -28,7 +28,7 @@ public class FeedbackController {
 	private FeedbackService feedbackService;
 	
 	@PostMapping("/add/{key}")
-	public ResponseEntity<Feedback> addNewFeedback(@RequestBody @Valid Feedback feedback,@PathVariable("key") String key)throws FeedbackException{
+	public ResponseEntity<Feedback> addNewFeedback(@Valid @RequestBody  Feedback feedback,@PathVariable("key") String key)throws FeedbackException{
 		
 		
 		return new ResponseEntity<>(feedbackService.addFeedback(feedback,key),HttpStatus.CREATED);
