@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +26,7 @@ public class Package {
 	private String packageDescription;
 	private String packageType;
 	private Double packageCost;
+
 	
 	@Embedded
 	private PaymentDetail paymentDetails;

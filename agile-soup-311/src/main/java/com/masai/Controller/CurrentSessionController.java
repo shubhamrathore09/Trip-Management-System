@@ -22,13 +22,17 @@ public class CurrentSessionController {
 	
 	@PostMapping("/login")
 	public ResponseEntity<String> LoginInSystem(@RequestBody LoginDTO loginDTO)throws LoginException{
-		String msg=currentSessionService.LoginInSystem(loginDTO);
+		
+		String msg = currentSessionService.LoginInSystem(loginDTO);
+		
 		return new ResponseEntity<String>(msg,HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/logout")
 	public ResponseEntity<String>LogoutFromSystem(@RequestParam String key)throws LoginException{
-		String msg=currentSessionService.LogoutFromSystem(key);
+		
+		String msg = currentSessionService.LogoutFromSystem(key);
+		
 		return new ResponseEntity<String>(msg,HttpStatus.OK);
 	}
 	

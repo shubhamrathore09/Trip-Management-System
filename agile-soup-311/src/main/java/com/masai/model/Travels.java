@@ -24,4 +24,5 @@ public class Travels {
 	private String agentName;
 	private String address;
 	private String contact;
+	
 }
