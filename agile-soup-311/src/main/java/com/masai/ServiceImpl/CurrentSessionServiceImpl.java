@@ -24,12 +24,13 @@ public class CurrentSessionServiceImpl implements CurrentSessionService{
 	
 	@Autowired
 	private CurrentSessionRepo currentSessionRepo;
+
+	@Autowired
+	private CustomerRepo customerRepo;
 	
 	@Autowired
 	private AdminRepo adminRepo;
 	
-	@Autowired
-	private CustomerRepo customerRepo;
 	
 	@Override
 	public String LoginInSystem(LoginDTO loginDTO)throws LoginException {
