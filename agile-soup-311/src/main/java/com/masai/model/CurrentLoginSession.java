@@ -19,4 +19,5 @@ public class CurrentLoginSession {
 	private Integer sessionId;
 	private String mobile;
 	private String key;
+	private Integer userId;
 }
