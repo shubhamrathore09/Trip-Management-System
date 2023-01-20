@@ -7,6 +7,7 @@ import com.masai.Exception.CustomerException;
 import com.masai.Repository.CustomerRepo;
 import com.masai.Service.CustomerService;
 import com.masai.model.Customer;
+import com.masai.model.LoginDTO;
 
 
 
@@ -32,6 +33,27 @@ public class CustomerServiceImpl implements CustomerService{
 	@Override
 	public Customer getCustomerDetailsById(Integer id) throws CustomerException {
 		return customerRepo.findById(id).orElseThrow(()->new CustomerException("Customer not available by that id: "+id));
+	}
+
+
+	@Override
+	public String deleteByMobileAndPassword(LoginDTO loginDTO) throws CustomerException {
+		
+		Customer customer=customerRepo.findByCustomerMobile(loginDTO.getMobile());
+		if(customer==null) {
+			throw new CustomerException("You have enter wrong number");
+		}
+		
+		else {
+			if(customer.getCustomerPassword().equals(loginDTO.getPassword())){
+				customerRepo.delete(customer);
+				return "customer have been delete successfully";
+			}
+			else {
+				throw new CustomerException("you have enter wrong password");
+			}
+		}
+		
 	}
 
 }

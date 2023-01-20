@@ -35,10 +35,15 @@ public class Customer {
 	@NotNull
 	@Column(unique = true)
 	private String customerEmail;
+
+	@NotNull
+	@Size(min = 6,message = "password length should be more then 6")
+
 	
 	@Size(min = 6,message = "password length should be more than 6")
+
 	private String customerPassword;
-	
+	@NotNull
 	@Pattern(regexp = "[6789][0-9]{9}")
 	private String customerMobile;
 	
