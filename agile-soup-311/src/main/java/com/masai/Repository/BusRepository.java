@@ -7,5 +7,5 @@ import com.masai.model.Bus;
 
 @Repository
 public interface BusRepository extends JpaRepository<Bus,Integer>{
-
+	public Bus findByBusNumber(String busNumber);
 }

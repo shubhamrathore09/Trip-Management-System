@@ -2,11 +2,19 @@ package com.masai.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,10 +33,13 @@ public class Routes {
 	private Integer routeId;
 	private String routeFrom;
 	private String routeTo;
-	private LocalDateTime departureTime;
-	private LocalDateTime arrivalTime;
-	private LocalDate doj;
-	private String pickupPoint;
-	private Double fare;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "routes", cascade = CascadeType.ALL)
+	private Set<Bus> buses=new HashSet<>();
+	
+	
+	
+	
 	
 }
