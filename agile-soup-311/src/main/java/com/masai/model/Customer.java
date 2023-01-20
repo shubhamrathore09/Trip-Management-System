@@ -24,9 +24,10 @@ public class Customer {
 	@Email
 	@NotNull
 	private String customerEmail;
+	@NotNull
 	@Size(min = 6,message = "password length should be more then 6")
 	private String customerPassword;
-	
+	@NotNull
 	@Pattern(regexp = "[6789][0-9]{9}")
 	private String customerMobile;
 }

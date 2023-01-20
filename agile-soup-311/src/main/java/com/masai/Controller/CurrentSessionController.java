@@ -20,7 +20,6 @@ public class CurrentSessionController {
 	@Autowired
 	private CurrentSessionService currentSessionService;
 	
-	
 	@PostMapping("/login")
 	public ResponseEntity<String> LoginInSystem(@RequestBody LoginDTO loginDTO)throws LoginException{
 		String msg=currentSessionService.LoginInSystem(loginDTO);
