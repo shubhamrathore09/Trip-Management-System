@@ -9,6 +9,7 @@ import com.masai.model.Customer;
 import com.masai.model.LoginDTO;
 import com.masai.model.Routes;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public interface CustomerService {
@@ -18,7 +19,7 @@ public interface CustomerService {
 	public String changePassword(String oldPassword,String newPassword,String key)throws LoginException,CustomerException;
 	
 	public List<Routes> viewAllRoutes(String key)throws RouteException,LoginException;
-	public Set<Bus> getBusBySourceAndDestincation(String routeFrom,String routeTo,String key)throws LoginException,RouteException;
+	public Set<Bus> getBusBySourceAndDestincation(String routeFrom,String routeTo,String key,LocalDate date)throws LoginException,RouteException, BusException;
 	public String BookTicket(Integer quantity,String key,String BusNumber)throws LoginException,BusException; 
 	
 	

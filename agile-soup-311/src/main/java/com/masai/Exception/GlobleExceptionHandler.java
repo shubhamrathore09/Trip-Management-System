@@ -19,6 +19,19 @@ public class GlobleExceptionHandler {
 		return new ResponseEntity<>(myError,HttpStatus.BAD_REQUEST);
 	}
 	
+	@ExceptionHandler(AdminException.class)
+	public ResponseEntity<MyError> AdminExceptionHandler(AdminException msg,WebRequest request){
+		MyError myError=new MyError(msg.getMessage(), request.getDescription(false), LocalDateTime.now());
+		return new ResponseEntity<>(myError,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(BusException.class)
+	public ResponseEntity<MyError> BusExceptionHandler(BusException msg,WebRequest request){
+		MyError myError=new MyError(msg.getMessage(), request.getDescription(false), LocalDateTime.now());
+		return new ResponseEntity<>(myError,HttpStatus.BAD_REQUEST);
+	}
+	
+	
 	@ExceptionHandler(BookingException.class)
 	public ResponseEntity<MyError> bookingExceptionHandler(BookingException msg, WebRequest request) {
 		MyError error = new MyError();
@@ -45,12 +58,7 @@ public class GlobleExceptionHandler {
 		error.setDetails(request.getDescription(false));
 		return new ResponseEntity<MyError>(error, HttpStatus.NOT_FOUND);
 	}
-	
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<MyError>ValidationError(MethodArgumentNotValidException msg){
-		MyError myError=new MyError(msg.getBindingResult().getFieldError().getDefaultMessage(), "validation exception", LocalDateTime.now());
-		return new ResponseEntity<MyError>(myError,HttpStatus.BAD_REQUEST);
-	}
+
 	
 	
 	@ExceptionHandler(FeedbackException.class)
@@ -74,6 +82,15 @@ public class GlobleExceptionHandler {
 		return new ResponseEntity<MyError>(myError,HttpStatus.BAD_GATEWAY);
 	}
 	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<MyError>ValidationError(MethodArgumentNotValidException msg){
+		MyError myError=new MyError(msg.getBindingResult().getFieldError().getDefaultMessage(), "validation exception", LocalDateTime.now());
+		return new ResponseEntity<MyError>(myError,HttpStatus.BAD_REQUEST);
+	}
 	
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<MyError> IllegalArgumentExceptionHandler(IllegalArgumentException ae,WebRequest wr){
+		return new ResponseEntity<>(new MyError( ae.getMessage(), wr.getDescription(false),LocalDateTime.now()),HttpStatus.BAD_REQUEST);
+	}
 
 }

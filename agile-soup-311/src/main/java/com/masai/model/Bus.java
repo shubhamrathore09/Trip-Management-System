@@ -1,6 +1,7 @@
 package com.masai.model;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
@@ -35,11 +36,15 @@ public class Bus {
 	private String arivelTime;
 	private String deptureTime;
 	private String available;
+	private LocalDate doj;
 	
 	@JsonIgnore
 	@ManyToOne(cascade =   CascadeType.ALL)
 	private Routes routes;
 
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Travels travels;
 
 	@Override
 	public boolean equals(Object obj) {
