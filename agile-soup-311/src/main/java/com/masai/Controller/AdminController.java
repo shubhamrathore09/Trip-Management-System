@@ -19,6 +19,7 @@ import com.masai.Exception.AdminException;
 import com.masai.Exception.BusException;
 import com.masai.Exception.CustomerException;
 import com.masai.Exception.LoginException;
+import com.masai.Exception.RouteException;
 import com.masai.Service.AdminService;
 import com.masai.model.Admin;
 import com.masai.model.Bus;
@@ -94,6 +95,13 @@ public class AdminController {
 	public ResponseEntity<String> DeleteBusByIdHandler(@PathVariable Integer id ,@RequestParam String key)throws BusException,LoginException{
 		String msg=adminService.RemoveBus(id, key);
 		return new ResponseEntity<String>(msg,HttpStatus.OK);
+	}
+	
+	@GetMapping("/Bus")
+	public ResponseEntity<String>AssignBusByRouteHandler(@RequestParam String routeCode,@RequestParam String BusNumber,@RequestParam String key)
+			throws LoginException,BusException,RouteException{
+		String msg=adminService.AssingBusToRoute(routeCode, BusNumber, key);
+		return new ResponseEntity<>(msg,HttpStatus.CREATED);
 	}
 	
 }

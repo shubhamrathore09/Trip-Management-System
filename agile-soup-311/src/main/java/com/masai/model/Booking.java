@@ -25,4 +25,5 @@ public class Booking {
 	private String bookingDescription;
 	private String bookingTitle;
 	private LocalDate bookingDate;
+	private String BookingMobileNumber;
 }

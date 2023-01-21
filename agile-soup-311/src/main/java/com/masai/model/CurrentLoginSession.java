@@ -19,17 +19,12 @@ public class CurrentLoginSession {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer sessionId;
-<<<<<<< HEAD
-	private String mobile;
-	private String key;
-	private Integer userId;
-=======
+
 	
 	private Integer userId;
 		
 	private String userMobile;
 	
 	private String userKey;
->>>>>>> 5bba383094b7f7f869bdc60f58c2a7c5a1f50891
+
 }

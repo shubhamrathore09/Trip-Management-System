@@ -12,7 +12,7 @@ import com.masai.model.Routes;
 @Repository
 public interface RouteRepository extends JpaRepository<Routes, Integer>{
 
-	
+	public Routes findByRouteCode(String routeCode);
 	
 	@Query("select r.buses from Routes r where r.routeFrom=?1 AND r.routeTo=?2")
 	public Set<Bus> getBusByRoutes(String routeFrom,String routeTo);
