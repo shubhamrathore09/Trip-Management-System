@@ -18,17 +18,28 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-
 public class CurrentLoginSession {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+
+	private Integer sessionId;
+
+	private String mobile;
+	private String key;
 	private Integer userId;
+
+
+	private Integer userId;
+
 		
 	private String userMobile;
 	
 	private String userKey;
 
+
+
 	@Enumerated(EnumType.STRING)
 	private userType UserType;
+
 }
