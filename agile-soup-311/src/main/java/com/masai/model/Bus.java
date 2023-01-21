@@ -1,6 +1,10 @@
 package com.masai.model;
 
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -29,11 +33,37 @@ public class Bus {
 	private String busType;
 	private String busNumber;
 	private Integer capacity;
-	private LocalDateTime departure;
-	private LocalDateTime Arrivel;
-	
+	private String arivelTime;
+	private String deptureTime;
+	private String available;
+	private LocalDate doj;
 	
 	@JsonIgnore
 	@ManyToOne(cascade =   CascadeType.ALL)
 	private Routes routes;
+
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Travels travels;
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Bus other = (Bus) obj;
+		return Objects.equals(busId, other.busId) && Objects.equals(busNumber, other.busNumber);
+	}
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(busId, busNumber);
+	}
+	
+	
+	
 }

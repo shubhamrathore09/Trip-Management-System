@@ -18,7 +18,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Entity
-public class Package {
+public class PackageModule {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer packageId;
@@ -26,7 +26,6 @@ public class Package {
 	private String packageDescription;
 	private String packageType;
 	private Double packageCost;
-
 	
 	@Embedded
 	private PaymentDetail paymentDetails;

@@ -3,9 +3,9 @@ package com.masai.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.masai.model.Package;
+import com.masai.model.PackageModule;
 
 @Repository
-public interface PackageRepository extends JpaRepository<Package, Integer>{
+public interface PackageRepository extends JpaRepository<PackageModule, Integer>{
 
 }

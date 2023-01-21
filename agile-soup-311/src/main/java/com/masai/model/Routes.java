@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -33,6 +35,9 @@ public class Routes {
 	private Integer routeId;
 	private String routeFrom;
 	private String routeTo;
+	@Size(min = 4,max=10)
+	@Pattern(regexp = "[0-9]{4}")
+	private String routeCode;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "routes", cascade = CascadeType.ALL)

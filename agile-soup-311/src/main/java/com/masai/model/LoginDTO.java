@@ -15,7 +15,7 @@ public class LoginDTO {
 	
 	private String password;
 
-	
+	private String userType;
 	
 	
 }
