@@ -17,6 +17,7 @@ import com.masai.Repository.CurrentSessionRepo;
 import com.masai.Repository.CustomerRepo;
 import com.masai.Repository.RouteRepository;
 import com.masai.Service.AdminService;
+import com.masai.enums.userType;
 import com.masai.model.Admin;
 import com.masai.model.Bus;
 import com.masai.model.CurrentLoginSession;
@@ -93,6 +94,8 @@ public class AdminServiceImpl implements AdminService{
 		CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
 		if(currentLoginSession==null) {
 			throw new LoginException("You have to login first");
+		}else if(currentLoginSession.getUserType()!=userType.ADMIN) {
+			throw new LoginException("Please Login As Admin");
 		}
 		
 		return routeRepository.save(routes);
@@ -104,6 +107,8 @@ public class AdminServiceImpl implements AdminService{
 		CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
 		if(currentLoginSession==null) {
 			throw new LoginException("You have to login first");
+		}else if(currentLoginSession.getUserType()!=userType.ADMIN) {
+			throw new LoginException("Please Login As Admin");
 		}
 		
 		Optional<Routes> routes=routeRepository.findById(routeId);
@@ -158,6 +163,8 @@ public class AdminServiceImpl implements AdminService{
 		
 		if(currentLoginSession==null) {
 			throw new LoginException("You have to login first");
+		}else if(currentLoginSession.getUserType()!=userType.ADMIN) {
+			throw new LoginException("Please Login As Admin");
 		}
 		
 		Bus bus2=busRepository.findByBusNumber(bus.getBusNumber());
@@ -176,6 +183,8 @@ public class AdminServiceImpl implements AdminService{
 		
 		if(currentLoginSession==null) {
 			throw new LoginException("You have to login first");
+		}else if(currentLoginSession.getUserType()!=userType.ADMIN) {
+			throw new LoginException("Please Login As Admin");
 		}
 		
 		Optional<Bus> opt=busRepository.findById(id);
@@ -230,6 +239,8 @@ public class AdminServiceImpl implements AdminService{
 			
 			if(currentLoginSession==null) {
 				throw new LoginException("You have to login first");
+			}else if(currentLoginSession.getUserType()!=userType.ADMIN) {
+				throw new LoginException("Please Login As Admin");
 			}
 			
 			Routes routes=routeRepository.findByRouteCode(routeCode);

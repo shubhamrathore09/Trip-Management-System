@@ -1,11 +1,14 @@
 package com.masai.Controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -64,10 +67,10 @@ public class CustomerController {
 		List<Routes> list=customerService.viewAllRoutes(key);
 		return new ResponseEntity<List<Routes>>(list,HttpStatus.OK);
 	}
-	
+																		
 	@GetMapping("/customerBus")
-	public ResponseEntity<Set<Bus>> getAllBusBySourceToHandler(String routeFrom,String routeTo,String key)throws LoginException,RouteException{
-		Set<Bus> set=customerService.getBusBySourceAndDestincation(routeFrom, routeTo, key);
+	public ResponseEntity<Set<Bus>> getAllBusBySourceToHandler(@RequestParam String routeFrom,String routeTo,String key,@DateTimeFormat(iso = ISO.DATE)  LocalDate date)throws LoginException,RouteException,BusException{
+		Set<Bus> set=customerService.getBusBySourceAndDestincation(routeFrom, routeTo, key,date);
 		return new ResponseEntity<Set<Bus>>(set,HttpStatus.OK);
 	}
 	

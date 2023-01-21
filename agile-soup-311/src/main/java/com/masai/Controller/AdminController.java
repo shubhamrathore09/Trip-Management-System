@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,10 +22,12 @@ import com.masai.Exception.CustomerException;
 import com.masai.Exception.LoginException;
 import com.masai.Exception.RouteException;
 import com.masai.Service.AdminService;
+import com.masai.Service.TravelsService;
 import com.masai.model.Admin;
 import com.masai.model.Bus;
 import com.masai.model.CustomerDTO;
 import com.masai.model.Routes;
+import com.masai.model.Travels;
 
 @RestController
 public class AdminController {
@@ -33,6 +36,8 @@ public class AdminController {
 	@Autowired 
 	private AdminService adminService;
 	
+	@Autowired
+	private TravelsService travelService;
 	
 	@PostMapping("/admin")
 	public ResponseEntity<Admin> InsertAdminHandler(@Valid @RequestBody Admin admin)throws AdminException{
@@ -97,11 +102,40 @@ public class AdminController {
 		return new ResponseEntity<String>(msg,HttpStatus.OK);
 	}
 	
-	@GetMapping("/Bus")
+	@GetMapping("/BusAssign")
 	public ResponseEntity<String>AssignBusByRouteHandler(@RequestParam String routeCode,@RequestParam String BusNumber,@RequestParam String key)
 			throws LoginException,BusException,RouteException{
 		String msg=adminService.AssingBusToRoute(routeCode, BusNumber, key);
 		return new ResponseEntity<>(msg,HttpStatus.CREATED);
+	}
+	
+	
+//	-----------------------Travels------------------------
+
+	
+	@PostMapping("/travel")
+	public ResponseEntity<Travels> addTravelsHandler(@Valid @RequestBody Travels travel){
+		return new ResponseEntity<>(travelService.addTravels(travel),HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/travel")
+	public ResponseEntity<Travels> updateTravelsHandler(@Valid @RequestBody Travels travel){
+		return new ResponseEntity<>(travelService.updateTravels(travel),HttpStatus.CREATED);
+	}
+	
+	@DeleteMapping("/travel/{id}")
+	public ResponseEntity<Travels> deleteTravelsHandler(@Valid @PathVariable("id") Integer id){
+		return new ResponseEntity<>(travelService.removeTravels(id),HttpStatus.OK);
+	}
+	
+	@GetMapping("/travel/{id}")
+	public ResponseEntity<Travels> getTravelByIdHandler(@Valid @PathVariable("id") Integer id){
+		return new ResponseEntity<>(travelService.getTravelsById(id),HttpStatus.OK);
+	}
+	
+	@GetMapping("/travels")
+	public ResponseEntity<List<Travels>> getAllTravelsHandler(){
+		return new ResponseEntity<>(travelService.getAllTravels(),HttpStatus.OK);
 	}
 	
 }

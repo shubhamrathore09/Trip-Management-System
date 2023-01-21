@@ -1,8 +1,13 @@
 package com.masai.ServiceImpl;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -132,21 +137,26 @@ public class CustomerServiceImpl implements CustomerService{
 
 
 	@Override
-	public Set<Bus> getBusBySourceAndDestincation(String routeFrom, String routeTo, String key)
-			throws LoginException, RouteException {
+	public Set<Bus> getBusBySourceAndDestincation(String routeFrom, String routeTo, String key,LocalDate date)
+			throws LoginException, RouteException, BusException {
 		
 		CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
 		if(currentLoginSession==null) {
 			throw new LoginException("You have to login first");
 		}
-		
 		Set<Bus> set=routeRepository.getBusByRoutes(routeFrom, routeTo);
+		Set<Bus> buses = new HashSet<>();
+		for(Bus e : set) {
+			if(e.getDoj().compareTo(date)==0) {
+				buses.add(e);
+			}
+		}
 		if(set.isEmpty()) {
 			throw new RouteException("No Buses are avaialble by that route");
 		}
-		
-		return set;
+		return buses;
 	}
+	
 
 
 	@Override
