@@ -28,4 +28,5 @@ public interface AdminService {
 	public String RemoveBus(Integer id,String key)throws BusException,LoginException;
 	public Bus GetBusById(Integer id ,String key)throws BusException,LoginException;
 	public List<Bus> getAllTheBuses(String key)throws BusException,LoginException;
+	public String AssingBusToRoute(String routeCode, String BusNumber,String key)throws LoginException,BusException,RouteException;
 }

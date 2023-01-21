@@ -222,4 +222,33 @@ public class AdminServiceImpl implements AdminService{
 		return list;
 	}
 
+	@Override
+	public String AssingBusToRoute(String routeCode, String BusNumber, String key)
+			throws LoginException, BusException, RouteException {
+		
+		 CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
+			
+			if(currentLoginSession==null) {
+				throw new LoginException("You have to login first");
+			}
+			
+			Routes routes=routeRepository.findByRouteCode(routeCode);
+			Bus bus=busRepository.findByBusNumber(BusNumber);
+			
+			if(bus==null) {
+				throw new BusException("wrong bus number: "+bus);
+			}
+			else if(routes==null) {
+				throw new RouteException("wrong route: "+routes);
+			}
+			else {
+			
+				routes.getBuses().add(bus);
+				bus.setRoutes(routes);
+				busRepository.save(bus);
+				return "assign succesfully";
+				
+			}
+	}
+
 }
