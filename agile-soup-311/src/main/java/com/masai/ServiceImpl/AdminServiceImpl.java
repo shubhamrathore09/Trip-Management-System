@@ -9,12 +9,14 @@ import org.springframework.stereotype.Service;
 import com.masai.Exception.AdminException;
 import com.masai.Exception.BusException;
 import com.masai.Exception.CustomerException;
+import com.masai.Exception.HotelException;
 import com.masai.Exception.LoginException;
 import com.masai.Exception.RouteException;
 import com.masai.Repository.AdminRepo;
 import com.masai.Repository.BusRepository;
 import com.masai.Repository.CurrentSessionRepo;
 import com.masai.Repository.CustomerRepo;
+import com.masai.Repository.HotelRepository;
 import com.masai.Repository.RouteRepository;
 import com.masai.Service.AdminService;
 import com.masai.enums.userType;
@@ -22,6 +24,7 @@ import com.masai.model.Admin;
 import com.masai.model.Bus;
 import com.masai.model.CurrentLoginSession;
 import com.masai.model.CustomerDTO;
+import com.masai.model.Hotel;
 import com.masai.model.Routes;
 
 @Service
@@ -41,6 +44,9 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Autowired
 	private BusRepository busRepository;
+	
+	@Autowired 
+	private HotelRepository hotelRepository;
 
 	@Override
 	public Admin InsertAdmin(Admin admin) throws AdminException {
@@ -259,6 +265,98 @@ public class AdminServiceImpl implements AdminService{
 				busRepository.save(bus);
 				return "assign succesfully";
 				
+			}
+	}
+	
+//	**********************************************Hotel*************************************************
+
+	@Override
+	public Hotel ragistorHotel(Hotel hotel, String key) throws HotelException, LoginException {
+		
+		 CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
+			
+			if(currentLoginSession==null) {
+				throw new LoginException("You have to login first");
+			}
+			
+			Hotel hotel2=hotelRepository.findByHotelCode(hotel.getHotelCode());
+			
+			if(hotel2==null) {
+				return hotelRepository.save(hotel);
+			}
+		throw new HotelException("hotel is already present by that id");
+	}
+
+	@Override
+	public Hotel updateHotel(Hotel hotel, String key) throws HotelException, LoginException {
+		
+		 CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
+			
+			if(currentLoginSession==null) {
+				throw new LoginException("You have to login first");
+			}
+			
+			Optional<Hotel> hotel2=hotelRepository.findById(hotel.getHotelID());
+		
+			if(hotel2.isPresent()) {
+				return hotelRepository.save(hotel);
+			}
+		
+			throw new HotelException("you have enter wrong id");
+			
+	}
+
+	@Override
+	public String deleteHotelById(Integer id, String key) throws HotelException, LoginException {
+		// TODO Auto-generated method stub
+		
+		CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
+		
+		if(currentLoginSession==null) {
+			throw new LoginException("You have to login first");
+		}
+		
+		Optional<Hotel> opt=hotelRepository.findById(id);
+		
+		if(opt.isPresent()) {
+			hotelRepository.delete(opt.get());
+			return "hotel has been deleted";	
+		}
+		throw new HotelException("no hotel available by that id");
+	}
+
+	@Override
+	public Hotel viewHotelById(Integer id, String key) throws HotelException, LoginException {
+		
+     CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
+		
+		if(currentLoginSession==null) {
+			throw new LoginException("You have to login first");
+		}
+		
+		Optional<Hotel> opt=hotelRepository.findById(id);
+		
+		if(opt.isPresent()) {
+			return opt.get();	
+		}
+		throw new HotelException("no hotel available by that id");
+	}
+
+	@Override
+	public List<Hotel> viewAllHotel(String key) throws HotelException, LoginException {
+		
+		  CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
+			
+			if(currentLoginSession==null) {
+				throw new LoginException("You have to login first");
+			}
+			List<Hotel> list=hotelRepository.findAll();
+			if(list==null) {
+				throw new HotelException("no hotels are available");
+			}
+			else
+			{
+				return list;
 			}
 	}
 

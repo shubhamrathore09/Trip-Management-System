@@ -9,11 +9,14 @@ import com.masai.model.Hotel;
 
 public interface HotelRepository extends JpaRepository<Hotel, Integer> {
 
+	public Hotel findByHotelCode(Integer hotelCode);
 
-    @Query("select h from Hotel h where h.hotelName = ?1")
-	List<Hotel> getHotelByName(String name);
+	public List<Hotel> findByAddress(String address);
+	
+	public List<Hotel> findByFareBetween(Integer loweramount,Integer higheramount);
+	
+	
+	
 
-	@Query("select h from Hotel h where h.rent = ?1")
-	List<Hotel> findByCost(String rent);
 	
 }
