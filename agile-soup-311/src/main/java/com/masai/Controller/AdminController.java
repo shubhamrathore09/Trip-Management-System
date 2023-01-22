@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,12 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.masai.Exception.AdminException;
 import com.masai.Exception.BusException;
 import com.masai.Exception.CustomerException;
+import com.masai.Exception.HotelException;
 import com.masai.Exception.LoginException;
 import com.masai.Exception.RouteException;
 import com.masai.Service.AdminService;
 import com.masai.model.Admin;
 import com.masai.model.Bus;
 import com.masai.model.CustomerDTO;
+import com.masai.model.Hotel;
 import com.masai.model.Routes;
 
 @RestController
@@ -102,6 +105,33 @@ public class AdminController {
 			throws LoginException,BusException,RouteException{
 		String msg=adminService.AssingBusToRoute(routeCode, BusNumber, key);
 		return new ResponseEntity<>(msg,HttpStatus.CREATED);
+	}
+	
+//	******************************************************************Hotel***********************************8****************************************
+	
+	@PostMapping("/adminHotel")
+	public ResponseEntity<Hotel> ragistorHotelHandler(@Valid @RequestBody Hotel hotel,@RequestParam String key) throws HotelException, LoginException{
+	return new ResponseEntity<Hotel>(adminService.ragistorHotel(hotel, key),HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/adminHotel")
+	public ResponseEntity<Hotel>UpdateHotelHandler(@Valid @RequestBody Hotel hotel,@RequestParam String key) throws HotelException, LoginException{
+	return new ResponseEntity<Hotel>(adminService.updateHotel(hotel, key),HttpStatus.OK);
+	}
+	
+	@GetMapping("/adminHotel/{id}")
+	public ResponseEntity<Hotel>GetHotelByIdHandler(@Valid @PathVariable("id")Integer id,@RequestParam String key) throws HotelException, LoginException{
+	return new ResponseEntity<Hotel>(adminService.viewHotelById(id, key),HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/adminHotel/{id}")
+	public ResponseEntity<String>DeleteHotelByIdHandler(@Valid @PathVariable("id")Integer id,@RequestParam String key) throws HotelException, LoginException{
+	return new ResponseEntity<String>(adminService.deleteHotelById(id, key),HttpStatus.OK);
+	}
+	
+	@GetMapping("/adminHotel")
+	public ResponseEntity<List<Hotel>>GetAllHotelIdHandler(@RequestParam String key) throws HotelException, LoginException{
+	return new ResponseEntity<List<Hotel>>(adminService.viewAllHotel(key),HttpStatus.OK);
 	}
 	
 }

@@ -9,18 +9,21 @@ import org.springframework.stereotype.Service;
 
 import com.masai.Exception.BusException;
 import com.masai.Exception.CustomerException;
+import com.masai.Exception.HotelException;
 import com.masai.Exception.LoginException;
 import com.masai.Exception.RouteException;
 import com.masai.Repository.BookingRepository;
 import com.masai.Repository.BusRepository;
 import com.masai.Repository.CurrentSessionRepo;
 import com.masai.Repository.CustomerRepo;
+import com.masai.Repository.HotelRepository;
 import com.masai.Repository.RouteRepository;
 import com.masai.Service.CustomerService;
 import com.masai.model.Booking;
 import com.masai.model.Bus;
 import com.masai.model.CurrentLoginSession;
 import com.masai.model.Customer;
+import com.masai.model.Hotel;
 import com.masai.model.LoginDTO;
 import com.masai.model.Routes;
 
@@ -43,6 +46,9 @@ public class CustomerServiceImpl implements CustomerService{
 	
 	@Autowired
 	private BookingRepository bookingRepository;
+	
+	@Autowired
+	private HotelRepository hotelRepository;
 	
 
 	@Override
@@ -184,6 +190,80 @@ public class CustomerServiceImpl implements CustomerService{
 		
 		return "Not enough ticket are there only ticker are there: "+bus.getCapacity();
 		
+	}
+
+//*************************************************************Hotel*********************************************************************	
+
+	@Override
+	public List<Hotel> viewAllHotelByAddress(String address, String key) throws HotelException, LoginException {
+		
+		CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
+		if(currentLoginSession==null) {
+			throw new LoginException("You have to login first");
+		}
+		
+		List<Hotel> list=hotelRepository.findByAddress(address);
+		
+		if(list==null) {
+			throw new HotelException("hotel not found by that id");
+		}
+	
+		return list;
+		
+	}
+
+
+	@Override
+	public Hotel viewHotelByCode(Integer hoteCode, String key) throws HotelException, LoginException {
+		
+		CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
+		if(currentLoginSession==null) {
+			throw new LoginException("You have to login first");
+		}
+		
+		Hotel hotel=hotelRepository.findByHotelCode(hoteCode);
+		
+		if(hotel==null) {
+			throw new HotelException("hotel not found by that id");
+		}
+		
+		
+		return hotel;
+	}
+
+
+	@Override
+	public List<Hotel> viewHotelByFare(Integer lowerAmount, Integer higherAmount, String key)
+			throws LoginException, HotelException {
+		
+		CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
+		if(currentLoginSession==null) {
+			throw new LoginException("You have to login first");
+		}
+		
+		List<Hotel> list=hotelRepository.findByFareBetween(lowerAmount, higherAmount);
+		
+		if(list==null) {
+			throw new HotelException("no hotel are available");
+		}
+		
+		
+		return list;
+	}
+
+
+	@Override
+	public String BookHotel(Integer hotelCode, String key) throws HotelException, LoginException {
+		// TODO Auto-generated method stub
+		
+		CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
+		if(currentLoginSession==null) {
+			throw new LoginException("You have to login first");
+		}
+		
+		
+		
+		return null;
 	}
 }
 
