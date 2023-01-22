@@ -22,7 +22,7 @@ public class CurrentSessionController {
 	
 	@PostMapping("/login")
 	public ResponseEntity<String> LoginInSystem(@RequestBody LoginDTO loginDTO)throws LoginException{
-		
+		System.out.println(loginDTO);
 		String msg = currentSessionService.LoginInSystem(loginDTO);
 		
 		return new ResponseEntity<String>(msg,HttpStatus.CREATED);

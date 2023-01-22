@@ -36,7 +36,7 @@ public class CurrentSessionServiceImpl implements CurrentSessionService{
 	public String LoginInSystem(LoginDTO loginDTO)throws LoginException {
 		
 		CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserMobile(loginDTO.getMobile());
-		
+
 		if(currentLoginSession==null) {
 			
 	     Admin admin=adminRepo.findByAdminMobile(loginDTO.getMobile());
@@ -50,31 +50,32 @@ public class CurrentSessionServiceImpl implements CurrentSessionService{
 				}
 				
 				else {
-					if(customer.getCustomerPassword().equals(loginDTO.getPassword())) {
-						
+					if(customer.getCustomerPassword().equals(loginDTO.getPassword()) && loginDTO.getUserType().equals("CUSTOMER")) {
 						String key=RandomString.make(6);
 						CurrentLoginSession currentLoginSession2=new CurrentLoginSession();
 						currentLoginSession2.setUserKey(key);
 						currentLoginSession2.setUserMobile(loginDTO.getMobile());
+						currentLoginSession2.setUserType("CUSTOMER");
 						currentSessionRepo.save(currentLoginSession2);
-						
 						return "login succesfully: "+key;
+					}else {
+		
+						throw new LoginException("Check User Type");
 					}
 				}
+	
+			}else {
 				
-			  	
-				
-			}
-			
-			
-			else {
-				if(admin.getAdminPassword().equals(loginDTO.getPassword())) {
+				if(admin.getAdminPassword().equals(loginDTO.getPassword()) && loginDTO.equals("ADMIN")){
 					String key=RandomString.make(6);
 					CurrentLoginSession currentLoginSession2=new CurrentLoginSession();
 					currentLoginSession2.setUserKey(key);
 					currentLoginSession2.setUserMobile(loginDTO.getMobile());
+					currentLoginSession2.setUserType("ADMIN");
 					currentSessionRepo.save(currentLoginSession2);
 					return "login succesfully: "+key;
+				}else {
+					throw new LoginException("Check User Type");
 				}
 			}
 				

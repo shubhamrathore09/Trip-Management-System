@@ -27,7 +27,6 @@ public class Hotel {
 	@Size(min = 1, message = "Hotel name cannot be null")
     private String hotelName;
     private String hotelType;
-    @Pattern(regexp = "[0-9]{4}")
     private Integer hotelCode;
     private String address;
 	@NotNull(message = "Price should not be negative value")

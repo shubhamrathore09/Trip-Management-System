@@ -13,21 +13,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.masai.Exception.AdminException;
+import com.masai.Exception.BookingException;
 import com.masai.Exception.BusException;
 import com.masai.Exception.CustomerException;
 import com.masai.Exception.HotelException;
 import com.masai.Exception.LoginException;
+import com.masai.Exception.PackageException;
 import com.masai.Exception.RouteException;
 import com.masai.Service.AdminService;
+import com.masai.Service.BookingService;
+import com.masai.Service.PackageService;
 import com.masai.Service.TravelsService;
 import com.masai.model.Admin;
+import com.masai.model.Booking;
 import com.masai.model.Bus;
 import com.masai.model.CustomerDTO;
 import com.masai.model.Hotel;
+import com.masai.model.PackageModule;
 import com.masai.model.Routes;
 import com.masai.model.Travels;
 
@@ -40,6 +47,12 @@ public class AdminController {
 	
 	@Autowired
 	private TravelsService travelService;
+	
+	@Autowired
+	private BookingService bookingService;
+	
+	@Autowired
+	private PackageService packageService;
 	
 	@PostMapping("/admin")
 	public ResponseEntity<Admin> InsertAdminHandler(@Valid @RequestBody Admin admin)throws AdminException{
@@ -137,23 +150,24 @@ public class AdminController {
 	@GetMapping("/adminHotel")
 	public ResponseEntity<List<Hotel>>GetAllHotelIdHandler(@RequestParam String key) throws HotelException, LoginException{
 	return new ResponseEntity<List<Hotel>>(adminService.viewAllHotel(key),HttpStatus.OK);
-=======
+	}
+
 	
 //	-----------------------Travels------------------------
 
 	
 	@PostMapping("/travel")
-	public ResponseEntity<Travels> addTravelsHandler(@Valid @RequestBody Travels travel){
+	public ResponseEntity<Travels> addTravelsHandler(@Valid @RequestBody Travels travel,@RequestParam String key){
 		return new ResponseEntity<>(travelService.addTravels(travel),HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/travel")
-	public ResponseEntity<Travels> updateTravelsHandler(@Valid @RequestBody Travels travel){
+	public ResponseEntity<Travels> updateTravelsHandler(@Valid @RequestBody Travels travel,@RequestParam String key){
 		return new ResponseEntity<>(travelService.updateTravels(travel),HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/travel/{id}")
-	public ResponseEntity<Travels> deleteTravelsHandler(@Valid @PathVariable("id") Integer id){
+	public ResponseEntity<Travels> deleteTravelsHandler(@Valid @PathVariable("id") Integer id,@RequestParam String key){
 		return new ResponseEntity<>(travelService.removeTravels(id),HttpStatus.OK);
 	}
 	
@@ -166,6 +180,52 @@ public class AdminController {
 	public ResponseEntity<List<Travels>> getAllTravelsHandler(){
 		return new ResponseEntity<>(travelService.getAllTravels(),HttpStatus.OK);
 
+	}
+	
+//	---------------------Package--------------------------------
+	
+
+	@PostMapping("/Apackage")
+	public ResponseEntity<PackageModule> addPackageHandler(@RequestBody PackageModule pack,@RequestParam String key) throws PackageException,LoginException{
+		return new ResponseEntity<PackageModule>(packageService.addPackage(pack,key), HttpStatus.CREATED);
+	}
+
+	@DeleteMapping("/Apackage/{id}")
+	public ResponseEntity<PackageModule> deletePackageByIdHandler(@PathVariable("id")Integer id,@RequestParam String key) throws PackageException,LoginException{
+		return new ResponseEntity<PackageModule>(packageService.deletePackage(id,key), HttpStatus.OK); 
+	}
+
+	@GetMapping("/Apackage/{id}")
+	public ResponseEntity<PackageModule> searchPackageByIdHandler(@PathVariable("id") Integer id,@RequestParam String key) throws PackageException,LoginException{
+		return new ResponseEntity<PackageModule>(packageService.searchPackage(id,key), HttpStatus.OK);
+	}
+
+	@GetMapping("/AviewListOfPackage")
+	public ResponseEntity<List<PackageModule>> viewAllPackageHandler(@RequestParam String key) throws PackageException,LoginException{
+		return new ResponseEntity<List<PackageModule>>(packageService.viewAllPackages(key), HttpStatus.OK);
+	}
+	
+//	------------------------Booking--------------------------------
+	
+	
+	@PostMapping("/Abooking")
+	public ResponseEntity<Booking> makeBookingHandler(@RequestBody Booking booking,@RequestParam String key)throws BookingException,LoginException {
+		return new ResponseEntity<Booking>(bookingService.makeBooking(booking,key), HttpStatus.CREATED);
+	}
+
+	@DeleteMapping("/Abooking/{id}")
+	public ResponseEntity<Booking> cancelBookingByIdHandler(@PathVariable("id") Integer id,@RequestParam String key)throws BookingException,LoginException {
+		return new ResponseEntity<Booking>(bookingService.cancelBooking(id,key), HttpStatus.OK);
+	}
+
+	@GetMapping("/Abooking/{id}")
+	public ResponseEntity<Booking> viewBookingByIdHandler(@PathVariable("id") Integer id,@RequestParam String key)throws BookingException,LoginException {
+		return new ResponseEntity<Booking>(bookingService.viewBooking(id,key), HttpStatus.OK);
+	}
+	
+	@GetMapping("/listOfBooking")
+	public ResponseEntity<List<Booking>> viewAllBookingHandler(@RequestParam String key)throws BookingException,LoginException {
+		return new ResponseEntity<List<Booking>>(bookingService.viewAllBooking(key), HttpStatus.OK);
 	}
 	
 }

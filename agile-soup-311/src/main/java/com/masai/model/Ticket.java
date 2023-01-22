@@ -1,7 +1,9 @@
 package com.masai.model;
 
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,4 +23,6 @@ public class Ticket {
 	private String routeFrom;
 	private String routeTo;
 	
+	@OneToOne(mappedBy = "ticket")
+	private Booking booking;
 }

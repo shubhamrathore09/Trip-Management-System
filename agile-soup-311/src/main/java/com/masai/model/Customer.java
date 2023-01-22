@@ -46,9 +46,7 @@ public class Customer {
 	@NotNull
 	@Pattern(regexp = "[6789][0-9]{9}")
 	private String customerMobile;
-	
-	@JsonIgnore
-	private String userType = "User";
+
 	
 	
 	@JsonIgnore

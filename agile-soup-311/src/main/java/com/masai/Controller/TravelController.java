@@ -18,31 +18,31 @@ import com.masai.model.Travels;
 @RestController
 public class TravelController {
 
-	@Autowired
-	private TravelsService travelService;
-	
-	@PostMapping("/travel")
-	public ResponseEntity<Travels> addTravelsHandler(@Valid @RequestBody Travels travel){
-		return new ResponseEntity<>(travelService.addTravels(travel),HttpStatus.CREATED);
-	}
-	
-	@PutMapping("/travel")
-	public ResponseEntity<Travels> updateTravelsHandler(@Valid @RequestBody Travels travel){
-		return new ResponseEntity<>(travelService.updateTravels(travel),HttpStatus.CREATED);
-	}
-	
-	@DeleteMapping("/travel/{id}")
-	public ResponseEntity<Travels> deleteTravelsHandler(@Valid @PathVariable("id") Integer id){
-		return new ResponseEntity<>(travelService.removeTravels(id),HttpStatus.OK);
-	}
-	
-	@GetMapping("/travel/{id}")
-	public ResponseEntity<Travels> getTravelByIdHandler(@Valid @PathVariable("id") Integer id){
-		return new ResponseEntity<>(travelService.getTravelsById(id),HttpStatus.OK);
-	}
-	
-	@GetMapping("/travels")
-	public ResponseEntity<List<Travels>> getAllTravelsHandler(){
-		return new ResponseEntity<>(travelService.getAllTravels(),HttpStatus.OK);
-	}
+//	@Autowired
+//	private TravelsService travelService;
+//	
+//	@PostMapping("/travel")
+//	public ResponseEntity<Travels> addTravelsHandler(@Valid @RequestBody Travels travel){
+//		return new ResponseEntity<>(travelService.addTravels(travel),HttpStatus.CREATED);
+//	}
+//	
+//	@PutMapping("/travel")
+//	public ResponseEntity<Travels> updateTravelsHandler(@Valid @RequestBody Travels travel){
+//		return new ResponseEntity<>(travelService.updateTravels(travel),HttpStatus.CREATED);
+//	}
+//	
+//	@DeleteMapping("/travel/{id}")
+//	public ResponseEntity<Travels> deleteTravelsHandler(@Valid @PathVariable("id") Integer id){
+//		return new ResponseEntity<>(travelService.removeTravels(id),HttpStatus.OK);
+//	}
+//	
+//	@GetMapping("/travel/{id}")
+//	public ResponseEntity<Travels> getTravelByIdHandler(@Valid @PathVariable("id") Integer id){
+//		return new ResponseEntity<>(travelService.getTravelsById(id),HttpStatus.OK);
+//	}
+//	
+//	@GetMapping("/travels")
+//	public ResponseEntity<List<Travels>> getAllTravelsHandler(){
+//		return new ResponseEntity<>(travelService.getAllTravels(),HttpStatus.OK);
+//	}
 }
