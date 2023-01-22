@@ -1,13 +1,11 @@
 package com.masai.ServiceImpl;
 
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,12 +14,14 @@ import com.masai.Exception.BusException;
 import com.masai.Exception.CustomerException;
 import com.masai.Exception.HotelException;
 import com.masai.Exception.LoginException;
+import com.masai.Exception.PackageException;
 import com.masai.Exception.RouteException;
 import com.masai.Repository.BookingRepository;
 import com.masai.Repository.BusRepository;
 import com.masai.Repository.CurrentSessionRepo;
 import com.masai.Repository.CustomerRepo;
 import com.masai.Repository.HotelRepository;
+import com.masai.Repository.PackageRepository;
 import com.masai.Repository.RouteRepository;
 import com.masai.Service.CustomerService;
 import com.masai.model.Booking;
@@ -30,6 +30,7 @@ import com.masai.model.CurrentLoginSession;
 import com.masai.model.Customer;
 import com.masai.model.Hotel;
 import com.masai.model.LoginDTO;
+import com.masai.model.PackageModule;
 import com.masai.model.Routes;
 
 
@@ -55,7 +56,10 @@ public class CustomerServiceImpl implements CustomerService{
 	@Autowired
 	private HotelRepository hotelRepository;
 	
-
+	@Autowired
+	private PackageRepository packageRepo;
+	
+	
 	@Override
 	public Customer Ragistration(Customer customer) throws CustomerException {
 		Customer customer2=customerRepo.findByCustomerMobile(customer.getCustomerMobile());
@@ -274,6 +278,67 @@ public class CustomerServiceImpl implements CustomerService{
 		
 		
 		return null;
+	}
+
+
+	@Override
+	public Hotel viewHotelById(Integer id, String key) throws HotelException, LoginException {
+		
+	     CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
+			
+			if(currentLoginSession==null) {
+				throw new LoginException("You have to login first");
+			}
+			
+			Optional<Hotel> opt=hotelRepository.findById(id);
+			
+			if(opt.isPresent()) {
+				return opt.get();	
+			}
+			throw new HotelException("no hotel available by that id");
+	}
+
+
+	@Override
+	public List<Hotel> viewAllHotel(String key) throws HotelException, LoginException {
+		 CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
+			
+			if(currentLoginSession==null) {
+				throw new LoginException("You have to login first");
+			}
+		
+			List<Hotel> list=hotelRepository.findAll();
+			if(list==null) {
+				throw new HotelException("no hotels are available");
+			}
+			else
+			{
+				return list;
+			}
+	}
+	
+	@Override
+	public PackageModule searchPackage(Integer id,String key) throws PackageException,LoginException {
+		CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
+		if(currentLoginSession==null) {
+			throw new LoginException("You have to login first");
+		}
+		Optional<PackageModule> opt = packageRepo.findById(id);
+		if(opt.isEmpty())
+			throw new PackageException("Package is not found with Id : "+id +" Please provide correct id.");
+		return opt.get();
+	}
+
+	@Override
+	public List<PackageModule> viewAllPackages(String key) throws PackageException,LoginException {
+		CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
+		if(currentLoginSession==null) {
+			throw new LoginException("You have to login first");
+		}
+		List<PackageModule> list = packageRepo.findAll();
+		if(list.isEmpty())
+			throw new PackageException("Package list is empty...");
+		return list;
 	}
 }
 

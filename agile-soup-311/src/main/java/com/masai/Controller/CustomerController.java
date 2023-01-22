@@ -17,17 +17,27 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.masai.Exception.BookingException;
 import com.masai.Exception.BusException;
 import com.masai.Exception.CustomerException;
+import com.masai.Exception.HotelException;
 import com.masai.Exception.LoginException;
+import com.masai.Exception.PackageException;
 import com.masai.Exception.RouteException;
+import com.masai.Service.BookingService;
 import com.masai.Service.CustomerService;
+import com.masai.Service.PackageService;
+import com.masai.ServiceImpl.BookingServiceImpl;
+import com.masai.model.Booking;
 import com.masai.model.Bus;
 import com.masai.model.Customer;
+import com.masai.model.Hotel;
 import com.masai.model.LoginDTO;
+import com.masai.model.PackageModule;
 import com.masai.model.Routes;
 
 @RestController
@@ -35,6 +45,12 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerService customerService;
+	
+	@Autowired
+	private BookingService bookingService;
+	
+	@Autowired
+	private PackageService packageService;
 	
 	@PostMapping("/customer")
 	public ResponseEntity<Customer> Ragistraion(@Valid @RequestBody Customer customer)throws CustomerException{
@@ -82,58 +98,57 @@ public class CustomerController {
 	}
 	
 	
+//	------------------------------------Hotel---------------------------------------------
+	
+	
+	@GetMapping("/customerHotel/{id}")
+	public ResponseEntity<Hotel>GetHotelByIdHandler(@Valid @PathVariable("id")Integer id,@RequestParam String key) throws HotelException, LoginException{
+	return new ResponseEntity<Hotel>(customerService.viewHotelById(id, key),HttpStatus.OK);
+	}
+	
+	@GetMapping("/customerHotels")
+	public ResponseEntity<List<Hotel>>GetAllHotelIdHandler(@RequestParam String key) throws HotelException, LoginException{
+	return new ResponseEntity<List<Hotel>>(customerService.viewAllHotel(key),HttpStatus.OK);
+	}
 	
 	
 	
+//	--------------------------------------Package----------------------------------------
+	
+	
+
+	@GetMapping("/package/{id}")
+	public ResponseEntity<PackageModule> searchPackageByIdHandler(@PathVariable("id") Integer id,@RequestParam String key) throws PackageException,LoginException{
+		return new ResponseEntity<PackageModule>(packageService.searchPackage(id, key), HttpStatus.OK);
+	}
+
+	@GetMapping("/viewListOfPackage")
+	public ResponseEntity<List<PackageModule>> viewAllPackageHandler(@RequestParam String key) throws PackageException,LoginException{
+		return new ResponseEntity<List<PackageModule>>(packageService.viewAllPackages(key), HttpStatus.OK);
+	}
 	
 	
 	
+//--------------------------------------Booking-----------------------------------------------
 	
 	
+
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	@PostMapping("/booking")
+	public ResponseEntity<Booking> makeBookingHandler(@RequestBody Booking booking,@RequestParam String key)throws BookingException,LoginException {
+		return new ResponseEntity<Booking>(bookingService.makeBooking(booking,key), HttpStatus.CREATED);
+	}
+
+	@DeleteMapping("/booking/{id}")
+	public ResponseEntity<Booking> cancelBookingByIdHandler(@PathVariable("id") Integer id,@RequestParam String key)throws BookingException,LoginException {
+		return new ResponseEntity<Booking>(bookingService.cancelBooking(id,key), HttpStatus.OK);
+	}
+
+	@GetMapping("/booking/{id}")
+	public ResponseEntity<Booking> viewBookingByIdHandler(@PathVariable("id") Integer id,@RequestParam String key)throws BookingException,LoginException {
+		return new ResponseEntity<Booking>(bookingService.viewBooking(id,key), HttpStatus.OK);
+	}
 	
 	
 	

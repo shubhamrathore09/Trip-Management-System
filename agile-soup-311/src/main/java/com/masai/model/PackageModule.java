@@ -1,12 +1,11 @@
 package com.masai.model;
 
-import javax.persistence.Embedded;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,7 +26,10 @@ public class PackageModule {
 	private String packageType;
 	private Double packageCost;
 	
-	@Embedded
-	private PaymentDetail paymentDetails;
+	@OneToOne(mappedBy = "packM")
+	private Booking booking;
+	
+	
+	
 	
 }

@@ -47,9 +47,9 @@ public class FeedbackServiceImpl implements FeedbackService{
 		
 		CurrentLoginSession currentUser = currentUserOptional.get();
 		
-		Customer customer = customerRepo.findById(currentUser.getUserId()).get();
+		Customer customer = customerRepo.findById(currentUser.getSessionId()).get();
 		
-		if(customer.getUserType().equals("admin"))
+		if(customer==null)
 		{
 			throw new FeedbackException("Only customers can give feedback");
 		}
@@ -85,9 +85,9 @@ public class FeedbackServiceImpl implements FeedbackService{
 		
 		CurrentLoginSession currentLoginSession = currentUserOptional.get();
 		
-		Customer customer = customerRepo.findById(currentLoginSession.getUserId()).get();
+		Customer customer = customerRepo.findById(currentLoginSession.getSessionId()).get();
 		
-		if(customer.getUserType().equals("User"))
+		if(customer!=null)
 		{
 			throw new FeedbackException("Only admins can access this feature");
 		}
@@ -123,9 +123,9 @@ public class FeedbackServiceImpl implements FeedbackService{
 			
 			CurrentLoginSession currentUserLoginSession=currentUserOptional.get();
 			
-			Customer customer = customerRepo.findById(currentUserLoginSession.getUserId()).get();
+			Customer customer = customerRepo.findById(currentUserLoginSession.getSessionId()).get();
 			
-			if(customer.getUserType().equals("User"))
+			if(customer!=null)
 			{
 				throw new FeedbackException("Only admins can access this feature");
 			}
