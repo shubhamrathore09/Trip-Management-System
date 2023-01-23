@@ -42,7 +42,7 @@ public class Bus {
 	@ManyToOne(cascade =   CascadeType.ALL)
 	private Routes routes;
 
-	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Travels travels;
 

@@ -26,8 +26,7 @@ public class PackageModule {
 	private String packageType;
 	private Double packageCost;
 	
-	@OneToOne(mappedBy = "packM")
-	private Booking booking;
+
 	
 	
 	

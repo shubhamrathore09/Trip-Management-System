@@ -25,7 +25,6 @@ public class PaymentDetail {
 	private Double totalPayment;
 	private String paymentStatus;
 	
-	@OneToOne(mappedBy = "payment")
-	private Booking bookings;
+
 	
 }

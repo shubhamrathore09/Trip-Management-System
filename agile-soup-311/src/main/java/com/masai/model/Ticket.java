@@ -23,6 +23,5 @@ public class Ticket {
 	private String routeFrom;
 	private String routeTo;
 	
-	@OneToOne(mappedBy = "ticket")
-	private Booking booking;
+
 }
