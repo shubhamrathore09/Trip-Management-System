@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,6 +37,7 @@ import com.masai.model.CustomerDTO;
 import com.masai.model.Hotel;
 import com.masai.model.PackageModule;
 import com.masai.model.Routes;
+import com.masai.model.Ticket;
 import com.masai.model.Travels;
 
 @RestController
@@ -88,7 +90,7 @@ public class AdminController {
 	
 	@GetMapping("/route/{id}")
 	public ResponseEntity<Routes> getRouteByIdHandler(@RequestParam String key,@Valid @PathVariable("id") Integer id)throws LoginException{
-		return new ResponseEntity<>(adminService.findById(id,key),HttpStatus.OK);
+	  	return new ResponseEntity<>(adminService.findById(id,key),HttpStatus.OK);
 	}
 	
 //	***************************************************Bus****************************************************
@@ -208,14 +210,14 @@ public class AdminController {
 //	------------------------Booking--------------------------------
 	
 	
-	@PostMapping("/Abooking")
-	public ResponseEntity<Booking> makeBookingHandler(@RequestBody Booking booking,@RequestParam String key)throws BookingException,LoginException {
-		return new ResponseEntity<Booking>(bookingService.makeBooking(booking,key), HttpStatus.CREATED);
+	@PostMapping("/Abooking/{otp}")
+	public ResponseEntity<Ticket> makeBookingHandler(@RequestBody Booking booking,@RequestParam String key,@PathVariable("otp")Integer otp)throws BookingException,LoginException {
+		return new ResponseEntity<Ticket>(bookingService.makeBooking(booking,key,otp), HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/Abooking/{id}")
-	public ResponseEntity<Booking> cancelBookingByIdHandler(@PathVariable("id") Integer id,@RequestParam String key)throws BookingException,LoginException {
-		return new ResponseEntity<Booking>(bookingService.cancelBooking(id,key), HttpStatus.OK);
+	public ResponseEntity<Ticket> cancelBookingByIdHandler(@PathVariable("id") Integer id,@RequestParam String key)throws BookingException,LoginException {
+		return new ResponseEntity<>(bookingService.cancelBooking(id,key), HttpStatus.OK);
 	}
 
 	@GetMapping("/Abooking/{id}")

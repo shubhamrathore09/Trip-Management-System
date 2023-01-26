@@ -18,14 +18,14 @@ import com.masai.model.Routes;
 @RestController
 public class RouteController {
 
-	@Autowired
-	private RouteService routeService;
-	
+//	@Autowired
+//	private RouteService routeService;
+//	
 //	@PostMapping("/route")
 //	public ResponseEntity<Routes> addRoutesHandler(@Valid @RequestBody Routes route){
 //		return new ResponseEntity<>(routeService.createRoute(route),HttpStatus.CREATED);
 //	}
-	
+//
 //	@PutMapping("/route")
 //	public ResponseEntity<Routes> updateRoutesHandler(@Valid @RequestBody Routes route){
 //		return new ResponseEntity<>(routeService.updateRoute(route),HttpStatus.CREATED);

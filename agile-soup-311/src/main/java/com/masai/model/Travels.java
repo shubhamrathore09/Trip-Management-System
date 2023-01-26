@@ -20,16 +20,17 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@ToString
 @Entity
 public class Travels {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer travelsId;
+	
 	private String travelsName;
-	private String agentName;
+
 	private String address;
+	
 	private String contact;
 	
 	@JsonIgnore

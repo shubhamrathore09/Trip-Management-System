@@ -18,9 +18,9 @@ import com.masai.model.Travels;
 @RestController
 public class TravelController {
 
-//	@Autowired
-//	private TravelsService travelService;
-//	
+	@Autowired
+	private TravelsService travelService;
+	
 //	@PostMapping("/travel")
 //	public ResponseEntity<Travels> addTravelsHandler(@Valid @RequestBody Travels travel){
 //		return new ResponseEntity<>(travelService.addTravels(travel),HttpStatus.CREATED);

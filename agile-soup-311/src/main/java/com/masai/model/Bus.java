@@ -30,20 +30,29 @@ public class Bus {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer busId;
+	
 	private String busType;
+	
 	private String busNumber;
+	
+	private Double ticketPrice;
+	
 	private Integer capacity;
+	
 	private String arivelTime;
+	
 	private String deptureTime;
+	
 	private Integer availableSeats;
+	
 	private LocalDate doj;
 	
-	@JsonIgnore
-	@ManyToOne(cascade =   CascadeType.ALL)
+
+	@ManyToOne
 	private Routes routes;
 
-	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
+
+	@ManyToOne
 	private Travels travels;
 
 	@Override

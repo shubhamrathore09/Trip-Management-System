@@ -5,11 +5,12 @@ import java.util.List;
 import com.masai.Exception.BookingException;
 import com.masai.Exception.LoginException;
 import com.masai.model.Booking;
+import com.masai.model.Ticket;
 
 public interface BookingService {
-	public Booking makeBooking(Booking booking,String key) throws BookingException,LoginException;
+	public Ticket makeBooking(Booking booking,String key,Integer otp) throws BookingException,LoginException;
 	
-	public Booking cancelBooking(Integer id,String key) throws BookingException,LoginException;
+	public Ticket cancelBooking(Integer id,String key) throws BookingException,LoginException;
 	
 	public Booking viewBooking(Integer id,String key) throws BookingException,LoginException;
 	

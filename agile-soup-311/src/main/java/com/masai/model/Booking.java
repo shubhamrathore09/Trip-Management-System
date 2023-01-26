@@ -19,27 +19,29 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Entity
 public class Booking {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer bookingId;
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonIgnore
+	private String bookingId;
 
 	@JsonIgnore
 	private LocalDate bookingDate;
+	
 	private String BookingMobileNumber;
-	@JsonIgnore
-	private String userId;
 	
-//	@OneToOne(cascade = CascadeType.ALL)
 	private String BusNumber;
+	
 	private Integer quantity;
-	private LocalDate doj;
 	
-//	@OneToOne(cascade = CascadeType.ALL)
-//	private paymentDTO payment;
+	@JsonIgnore
+	private Double total_price;
 	
-//	@OneToOne(cascade = CascadeType.ALL)
-//	private PackageModule packM;
+	
+	
+	@JsonIgnore
+	private Integer ticketId;
+	
+	
 }

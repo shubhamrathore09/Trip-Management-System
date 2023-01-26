@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.masai.model.Booking;
 
 @Repository
-public interface BookingRepository extends JpaRepository<Booking, Integer>{
+public interface BookingRepository extends JpaRepository<Booking, String>{
 
 }
