@@ -190,10 +190,8 @@ public class CustomerServiceImpl implements CustomerService{
 			Integer newCapacity=bus.getCapacity()-quantity;
 			bus.setCapacity(newCapacity);
 			busRepository.save(bus);
-			
 			Booking booking=new Booking();
 			booking.setBookingDate(LocalDate.now());
-			booking.setBookingType("Bus");
 			booking.setBookingMobileNumber(currentLoginSession.getUserMobile());
 			
 			bookingRepository.save(booking);

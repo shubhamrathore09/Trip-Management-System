@@ -35,14 +35,14 @@ public class Bus {
 	private Integer capacity;
 	private String arivelTime;
 	private String deptureTime;
-	private String available;
+	private Integer availableSeats;
 	private LocalDate doj;
 	
 	@JsonIgnore
 	@ManyToOne(cascade =   CascadeType.ALL)
 	private Routes routes;
 
-	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Travels travels;
 

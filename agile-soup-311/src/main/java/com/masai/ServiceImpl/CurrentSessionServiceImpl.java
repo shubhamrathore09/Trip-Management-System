@@ -51,7 +51,7 @@ public class CurrentSessionServiceImpl implements CurrentSessionService{
 				
 				else {
 					if(customer.getCustomerPassword().equals(loginDTO.getPassword()) && loginDTO.getUserType().equals("CUSTOMER")) {
-						String key=RandomString.make(6);
+						String key=RandomString.make(6)+customer.getCustomerId()+"Customer";
 						CurrentLoginSession currentLoginSession2=new CurrentLoginSession();
 						currentLoginSession2.setUserKey(key);
 						currentLoginSession2.setUserMobile(loginDTO.getMobile());
@@ -66,8 +66,8 @@ public class CurrentSessionServiceImpl implements CurrentSessionService{
 	
 			}else {
 				
-				if(admin.getAdminPassword().equals(loginDTO.getPassword()) && loginDTO.equals("ADMIN")){
-					String key=RandomString.make(6);
+				if(admin.getAdminPassword().equals(loginDTO.getPassword()) && loginDTO.getUserType().equals("ADMIN")){
+					String key=RandomString.make(6)+admin.getAdminId()+"Admin";
 					CurrentLoginSession currentLoginSession2=new CurrentLoginSession();
 					currentLoginSession2.setUserKey(key);
 					currentLoginSession2.setUserMobile(loginDTO.getMobile());

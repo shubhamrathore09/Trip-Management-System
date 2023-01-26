@@ -25,20 +25,21 @@ public class Booking {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer bookingId;
-	private String bookingType;
-	private String bookingDescription;
+
 	@JsonIgnore
 	private LocalDate bookingDate;
 	private String BookingMobileNumber;
 	@JsonIgnore
 	private String userId;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	private Ticket ticket;
+//	@OneToOne(cascade = CascadeType.ALL)
+	private String BusNumber;
+	private Integer quantity;
+	private LocalDate doj;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	private PaymentDetail payment;
+//	@OneToOne(cascade = CascadeType.ALL)
+//	private paymentDTO payment;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	private PackageModule packM;
+//	@OneToOne(cascade = CascadeType.ALL)
+//	private PackageModule packM;
 }
