@@ -6,6 +6,10 @@ It contained all the basic CRUD operation related to different entity.
 
 ## Contributors
 - [@Shubham](https://github.com/Shubhamrathore09)
+- [@Nitin](https://github.com/Nitin-Kalshetty)
+- [@kajol](https://github.com/Kajol1106)
+- [@Malhari](https://github.com/amrutem11)
+- [@Saksham](https://github.com/imsaksham)
 
 
 ## Tech Stack and Tools
