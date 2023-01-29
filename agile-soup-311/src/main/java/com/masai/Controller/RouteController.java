@@ -11,38 +11,35 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.masai.Exception.LoginException;
 import com.masai.Service.RouteService;
 import com.masai.model.Routes;
 
 @RestController
 public class RouteController {
 
-//	@Autowired
-//	private RouteService routeService;
-//	
-//	@PostMapping("/route")
-//	public ResponseEntity<Routes> addRoutesHandler(@Valid @RequestBody Routes route){
-//		return new ResponseEntity<>(routeService.createRoute(route),HttpStatus.CREATED);
-//	}
-//
-//	@PutMapping("/route")
-//	public ResponseEntity<Routes> updateRoutesHandler(@Valid @RequestBody Routes route){
-//		return new ResponseEntity<>(routeService.updateRoute(route),HttpStatus.CREATED);
-//	}
-//	
-//	@DeleteMapping("/route/{id}")
-//	public ResponseEntity<Routes> deleteRoutesHandler(@Valid @PathVariable("id") Integer id){
-//		return new ResponseEntity<>(routeService.removeRoute(id),HttpStatus.OK);
-//	}
-//	
-//	@GetMapping("/route/{id}")
-//	public ResponseEntity<Routes> getRouteByIdHandler(@Valid @PathVariable("id") Integer id){
-//		return new ResponseEntity<>(routeService.getRouteById(id),HttpStatus.OK);
-//	}
-//	
-//	@GetMapping("/routes")
-//	public ResponseEntity<List<Routes>> getAllRoutesHandler(){
-//		return new ResponseEntity<>(routeService.getAllRoute(),HttpStatus.OK);
-//	}
+	@Autowired
+	private RouteService routeService;
+	
+	@PostMapping("/route")
+	public ResponseEntity<Routes> addRoutesHandler(@RequestParam String key,@Valid @RequestBody Routes route)throws LoginException{
+		return new ResponseEntity<>(routeService.addRoute(route,key),HttpStatus.CREATED);
+	}
+		
+	@DeleteMapping("/route/{id}")
+	public ResponseEntity<String> deleteRoutesHandler(@RequestParam String key,@Valid @PathVariable("id") Integer id)throws LoginException{
+		return new ResponseEntity<>(routeService.DeleteRoute(id,key),HttpStatus.OK);
+	}
+	@GetMapping("/routes")
+	public ResponseEntity<List<Routes>> getAllRoutesHandler(@RequestParam String key)throws LoginException{
+		return new ResponseEntity<>(routeService.routes(key),HttpStatus.OK);
+	}
+	
+	@GetMapping("/route/{id}")
+	public ResponseEntity<Routes> getRouteByIdHandler(@RequestParam String key,@Valid @PathVariable("id") Integer id)throws LoginException{
+	  	return new ResponseEntity<>(routeService.findById(id,key),HttpStatus.OK);
+	}
 }
