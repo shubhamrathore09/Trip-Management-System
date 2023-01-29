@@ -47,14 +47,10 @@ public class AdminController {
 	@Autowired 
 	private AdminService adminService;
 	
-	@Autowired
-	private TravelsService travelService;
 	
 	@Autowired
 	private BookingService bookingService;
 	
-	@Autowired
-	private PackageService packageService;
 	
 	@PostMapping("/admin")
 	public ResponseEntity<Admin> InsertAdminHandler(@Valid @RequestBody Admin admin)throws AdminException{
@@ -73,139 +69,9 @@ public class AdminController {
 		List<CustomerDTO> customerDTO=adminService.GetAllCustomerDetails(key);
 		return new ResponseEntity<List<CustomerDTO>>(customerDTO,HttpStatus.OK);
 	}
-	
-	@PostMapping("/route")
-	public ResponseEntity<Routes> addRoutesHandler(@RequestParam String key,@Valid @RequestBody Routes route)throws LoginException{
-		return new ResponseEntity<>(adminService.MakeRoute(route,key),HttpStatus.CREATED);
-	}
-		
-	@DeleteMapping("/route/{id}")
-	public ResponseEntity<String> deleteRoutesHandler(@RequestParam String key,@Valid @PathVariable("id") Integer id)throws LoginException{
-		return new ResponseEntity<>(adminService.DeleteRoute(id,key),HttpStatus.OK);
-	}
-	@GetMapping("/routes")
-	public ResponseEntity<List<Routes>> getAllRoutesHandler(@RequestParam String key)throws LoginException{
-		return new ResponseEntity<>(adminService.routes(key),HttpStatus.OK);
-	}
-	
-	@GetMapping("/route/{id}")
-	public ResponseEntity<Routes> getRouteByIdHandler(@RequestParam String key,@Valid @PathVariable("id") Integer id)throws LoginException{
-	  	return new ResponseEntity<>(adminService.findById(id,key),HttpStatus.OK);
-	}
-	
-//	***************************************************Bus****************************************************
-	
-	@PostMapping("/Bus")
-	public ResponseEntity<Bus> RagistorBusHandler(@RequestBody Bus bus,@RequestParam String key)throws BusException,LoginException{
-		Bus bus2=adminService.RagistorBus(bus, key);
-		return new ResponseEntity<Bus>(bus2,HttpStatus.CREATED);
-	}
-	
-	@GetMapping("/Bus/{id}")
-	public ResponseEntity<Bus> GetBusByIdHandler(@PathVariable Integer id ,@RequestParam String key)throws BusException,LoginException{
-		Bus bus2=adminService.GetBusById(id, key);
-		return new ResponseEntity<Bus>(bus2,HttpStatus.OK);
-	}
-	
-	@GetMapping("/Buses")
-	public ResponseEntity<List<Bus>> GetAllBusHandler(@RequestParam String key)throws BusException,LoginException{
-		List<Bus> bus2=adminService.getAllTheBuses(key);
-		return new ResponseEntity<List<Bus>>(bus2,HttpStatus.CREATED);
-	}
-	
-	@DeleteMapping("/Bus/{id}")
-	public ResponseEntity<String> DeleteBusByIdHandler(@PathVariable Integer id ,@RequestParam String key)throws BusException,LoginException{
-		String msg=adminService.RemoveBus(id, key);
-		return new ResponseEntity<String>(msg,HttpStatus.OK);
-	}
-	
-	@GetMapping("/BusAssign")
-	public ResponseEntity<String>AssignBusByRouteHandler(@RequestParam String routeCode,@RequestParam String BusNumber,@RequestParam String key)
-			throws LoginException,BusException,RouteException{
-		String msg=adminService.AssingBusToRoute(routeCode, BusNumber, key);
-		return new ResponseEntity<>(msg,HttpStatus.CREATED);
-	}
-	
 
-//	******************************************************************Hotel***********************************8****************************************
-	
-	@PostMapping("/adminHotel")
-	public ResponseEntity<Hotel> ragistorHotelHandler(@Valid @RequestBody Hotel hotel,@RequestParam String key) throws HotelException, LoginException{
-	return new ResponseEntity<Hotel>(adminService.ragistorHotel(hotel, key),HttpStatus.CREATED);
-	}
-	
-	@PutMapping("/adminHotel")
-	public ResponseEntity<Hotel>UpdateHotelHandler(@Valid @RequestBody Hotel hotel,@RequestParam String key) throws HotelException, LoginException{
-	return new ResponseEntity<Hotel>(adminService.updateHotel(hotel, key),HttpStatus.OK);
-	}
-	
-	@GetMapping("/adminHotel/{id}")
-	public ResponseEntity<Hotel>GetHotelByIdHandler(@Valid @PathVariable("id")Integer id,@RequestParam String key) throws HotelException, LoginException{
-	return new ResponseEntity<Hotel>(adminService.viewHotelById(id, key),HttpStatus.OK);
-	}
-	
-	@DeleteMapping("/adminHotel/{id}")
-	public ResponseEntity<String>DeleteHotelByIdHandler(@Valid @PathVariable("id")Integer id,@RequestParam String key) throws HotelException, LoginException{
-	return new ResponseEntity<String>(adminService.deleteHotelById(id, key),HttpStatus.OK);
-	}
-	
-	@GetMapping("/adminHotel")
-	public ResponseEntity<List<Hotel>>GetAllHotelIdHandler(@RequestParam String key) throws HotelException, LoginException{
-	return new ResponseEntity<List<Hotel>>(adminService.viewAllHotel(key),HttpStatus.OK);
-	}
 
 	
-//	-----------------------Travels------------------------
-
-	
-	@PostMapping("/travel")
-	public ResponseEntity<Travels> addTravelsHandler(@Valid @RequestBody Travels travel,@RequestParam String key){
-		return new ResponseEntity<>(travelService.addTravels(travel),HttpStatus.CREATED);
-	}
-	
-	@PutMapping("/travel")
-	public ResponseEntity<Travels> updateTravelsHandler(@Valid @RequestBody Travels travel,@RequestParam String key){
-		return new ResponseEntity<>(travelService.updateTravels(travel),HttpStatus.CREATED);
-	}
-	
-	@DeleteMapping("/travel/{id}")
-	public ResponseEntity<Travels> deleteTravelsHandler(@Valid @PathVariable("id") Integer id,@RequestParam String key){
-		return new ResponseEntity<>(travelService.removeTravels(id),HttpStatus.OK);
-	}
-	
-	@GetMapping("/travel/{id}")
-	public ResponseEntity<Travels> getTravelByIdHandler(@Valid @PathVariable("id") Integer id){
-		return new ResponseEntity<>(travelService.getTravelsById(id),HttpStatus.OK);
-	}
-	
-	@GetMapping("/travels")
-	public ResponseEntity<List<Travels>> getAllTravelsHandler(){
-		return new ResponseEntity<>(travelService.getAllTravels(),HttpStatus.OK);
-
-	}
-	
-//	---------------------Package--------------------------------
-	
-
-	@PostMapping("/Apackage")
-	public ResponseEntity<PackageModule> addPackageHandler(@RequestBody PackageModule pack,@RequestParam String key) throws PackageException,LoginException{
-		return new ResponseEntity<PackageModule>(packageService.addPackage(pack,key), HttpStatus.CREATED);
-	}
-
-	@DeleteMapping("/Apackage/{id}")
-	public ResponseEntity<PackageModule> deletePackageByIdHandler(@PathVariable("id")Integer id,@RequestParam String key) throws PackageException,LoginException{
-		return new ResponseEntity<PackageModule>(packageService.deletePackage(id,key), HttpStatus.OK); 
-	}
-
-	@GetMapping("/Apackage/{id}")
-	public ResponseEntity<PackageModule> searchPackageByIdHandler(@PathVariable("id") Integer id,@RequestParam String key) throws PackageException,LoginException{
-		return new ResponseEntity<PackageModule>(packageService.searchPackage(id,key), HttpStatus.OK);
-	}
-
-	@GetMapping("/AviewListOfPackage")
-	public ResponseEntity<List<PackageModule>> viewAllPackageHandler(@RequestParam String key) throws PackageException,LoginException{
-		return new ResponseEntity<List<PackageModule>>(packageService.viewAllPackages(key), HttpStatus.OK);
-	}
 	
 //	------------------------Booking--------------------------------
 	

@@ -31,7 +31,7 @@ public class Hotel {
     private String address;
 	@NotNull(message = "Price should not be negative value")
 	@NotEmpty(message = "Price should not be negative value")
-    private String fare;
+    private Integer fare;
     
 
 

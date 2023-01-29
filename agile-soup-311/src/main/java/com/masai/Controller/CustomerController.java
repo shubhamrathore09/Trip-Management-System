@@ -50,8 +50,6 @@ public class CustomerController {
 	@Autowired
 	private BookingService bookingService;
 	
-	@Autowired
-	private PackageService packageService;
 	
 	@PostMapping("/customer")
 	public ResponseEntity<Customer> Ragistraion(@Valid @RequestBody Customer customer)throws CustomerException{
@@ -79,17 +77,12 @@ public class CustomerController {
 		return new ResponseEntity<String>(msg,HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/customerRoute")
-	public ResponseEntity<List<Routes>> GetAllRouteHandler(@RequestParam String key)throws LoginException,CustomerException{
-		List<Routes> list=customerService.viewAllRoutes(key);
-		return new ResponseEntity<List<Routes>>(list,HttpStatus.OK);
-	}
 																		
-	@GetMapping("/customerBus")
-	public ResponseEntity<Set<Bus>> getAllBusBySourceToHandler(@RequestParam String routeFrom,String routeTo,String key,@DateTimeFormat(iso = ISO.DATE)  LocalDate date)throws LoginException,RouteException,BusException{
-		Set<Bus> set=customerService.getBusBySourceAndDestincation(routeFrom, routeTo, key,date);
-		return new ResponseEntity<Set<Bus>>(set,HttpStatus.OK);
-	}
+//	@GetMapping("/customerBus")
+//	public ResponseEntity<Set<Bus>> getAllBusBySourceToHandler(@RequestParam String routeFrom,String routeTo,String key,@DateTimeFormat(iso = ISO.DATE)  LocalDate date)throws LoginException,RouteException,BusException{
+//		Set<Bus> set=customerService.getBusBySourceAndDestincation(routeFrom, routeTo, key,date);
+//		return new ResponseEntity<Set<Bus>>(set,HttpStatus.OK);
+//	}
 	
 	@PutMapping("/CustomerTicket")
 	public ResponseEntity<String>BookTicketOfBusHandler(@RequestParam Integer quantity, @RequestParam String key,@RequestParam String BusNumber)
@@ -102,34 +95,16 @@ public class CustomerController {
 //	------------------------------------Hotel---------------------------------------------
 	
 	
-	@GetMapping("/customerHotel/{id}")
-	public ResponseEntity<Hotel>GetHotelByIdHandler(@Valid @PathVariable("id")Integer id,@RequestParam String key) throws HotelException, LoginException{
-	return new ResponseEntity<Hotel>(customerService.viewHotelById(id, key),HttpStatus.OK);
-	}
-	
-	@GetMapping("/customerHotels")
-	public ResponseEntity<List<Hotel>>GetAllHotelIdHandler(@RequestParam String key) throws HotelException, LoginException{
-	return new ResponseEntity<List<Hotel>>(customerService.viewAllHotel(key),HttpStatus.OK);
-	}
-	
-	
-	
-//	--------------------------------------Package----------------------------------------
-	
-	
+//	@GetMapping("/customerHotel/{id}")
+//	public ResponseEntity<Hotel>GetHotelByIdHandler(@Valid @PathVariable("id")Integer id,@RequestParam String key) throws HotelException, LoginException{
+//	return new ResponseEntity<Hotel>(customerService.viewHotelById(id, key),HttpStatus.OK);
+//	}
+//	
+//	@GetMapping("/customerHotels")
+//	public ResponseEntity<List<Hotel>>GetAllHotelIdHandler(@RequestParam String key) throws HotelException, LoginException{
+//	return new ResponseEntity<List<Hotel>>(customerService.viewAllHotel(key),HttpStatus.OK);
+//	}
 
-	@GetMapping("/package/{id}")
-	public ResponseEntity<PackageModule> searchPackageByIdHandler(@PathVariable("id") Integer id,@RequestParam String key) throws PackageException,LoginException{
-		return new ResponseEntity<PackageModule>(packageService.searchPackage(id, key), HttpStatus.OK);
-	}
-
-	@GetMapping("/viewListOfPackage")
-	public ResponseEntity<List<PackageModule>> viewAllPackageHandler(@RequestParam String key) throws PackageException,LoginException{
-		return new ResponseEntity<List<PackageModule>>(packageService.viewAllPackages(key), HttpStatus.OK);
-	}
-	
-	
-	
 //--------------------------------------Booking-----------------------------------------------
 	
 	

@@ -47,6 +47,7 @@ public class Bus {
 	
 	private LocalDate doj;
 	
+	private String travelMode;
 
 	@ManyToOne
 	private Routes routes;

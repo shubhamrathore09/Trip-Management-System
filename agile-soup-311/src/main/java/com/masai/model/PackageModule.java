@@ -25,10 +25,6 @@ public class PackageModule {
 	private String packageDescription;
 	private String packageType;
 	private Double packageCost;
-	
-
-	
-	
-	
-	
+	private Integer hotelId;
+	private Integer busId;
 }

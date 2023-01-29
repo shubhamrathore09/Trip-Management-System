@@ -22,22 +22,10 @@ public interface CustomerService {
 	public String deleteByMobileAndPassword(LoginDTO loginDTO,String key)throws CustomerException,LoginException;
 	public String changePassword(String oldPassword,String newPassword,String key)throws LoginException,CustomerException;
 	
-	public List<Routes> viewAllRoutes(String key)throws RouteException,LoginException;
-	public Set<Bus> getBusBySourceAndDestincation(String routeFrom,String routeTo,String key,LocalDate date)throws LoginException,RouteException, BusException;
 	public String BookTicket(Integer quantity,String key,String BusNumber)throws LoginException,BusException; 
 	
-	public List<Hotel> viewAllHotelByAddress(String address,String key)throws HotelException,LoginException;
-	public Hotel viewHotelByCode(Integer hoteCode ,String key)throws HotelException,LoginException;
-	public List<Hotel> viewHotelByFare(Integer lowerAmount,Integer higherAmount,String key)throws LoginException,HotelException;
-	public String BookHotel(Integer hotelCode,String key)throws HotelException,LoginException;
 	
 	
 	
-	public Hotel viewHotelById(Integer id,String key)throws HotelException,LoginException;
-	public List<Hotel> viewAllHotel(String key)throws HotelException,LoginException;
-	
-	
-	public PackageModule searchPackage(Integer id,String key) throws PackageException,LoginException;
-	public List<PackageModule> viewAllPackages(String key) throws PackageException,LoginException;
 	
 }
