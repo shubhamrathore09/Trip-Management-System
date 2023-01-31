@@ -60,16 +60,7 @@ public class GlobleExceptionHandler {
 	}
 
 	
-	
-	@ExceptionHandler(FeedbackException.class)
-	public ResponseEntity<MyError> OtherExceptionHandler(FeedbackException msg, WebRequest request){
-		MyError error  = new MyError();
-		error.setDateTime(LocalDateTime.now());
-		error.setMsg(msg.getMessage());
-		error.setDetails(request.getDescription(false));
-		
-		return new ResponseEntity<MyError>(error,HttpStatus.BAD_REQUEST);
-	}
+
 	@ExceptionHandler(NoHandlerFoundException.class)
 	public ResponseEntity<MyError>NoHandler(NoHandlerFoundException ex,WebRequest request){
 		MyError myError=new MyError(ex.getMessage(), request.getDescription(false), LocalDateTime.now());
