@@ -39,7 +39,6 @@ public class Booking {
 	private Double total_price;
 	
 	
-	
 	@JsonIgnore
 	private Integer ticketId;
 	

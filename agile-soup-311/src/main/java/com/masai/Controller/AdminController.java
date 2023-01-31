@@ -52,19 +52,19 @@ public class AdminController {
 	private BookingService bookingService;
 	
 	
-	@PostMapping("/admin")
-	public ResponseEntity<Admin> InsertAdminHandler(@Valid @RequestBody Admin admin)throws AdminException{
-		Admin admin2=adminService.InsertAdmin(admin);
+	@PostMapping("/RegisterAdmin")
+	public ResponseEntity<Admin> InsertAdminHandler(@Valid @RequestBody Admin admin,@RequestParam Integer code)throws AdminException{
+		Admin admin2=adminService.InsertAdmin(admin,code);
 		return new ResponseEntity<Admin>(admin2,HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/admin/{id}")
+	@GetMapping("/GetAdminById/{id}")
 	public ResponseEntity<Admin> GetByIdHandler(@RequestParam String key, @PathVariable Integer id)throws AdminException,LoginException{
 		Admin admin=adminService.GetAdminById(id,key);
 		return new ResponseEntity<Admin>(admin,HttpStatus.OK);
 	}
 	
-	@GetMapping("/customers")
+	@GetMapping("/GetAllCustomers")
 	public ResponseEntity<List<CustomerDTO>> getAllCustomer(@RequestParam String key)throws CustomerException,LoginException{
 		List<CustomerDTO> customerDTO=adminService.GetAllCustomerDetails(key);
 		return new ResponseEntity<List<CustomerDTO>>(customerDTO,HttpStatus.OK);
@@ -76,24 +76,24 @@ public class AdminController {
 //	------------------------Booking--------------------------------
 	
 	
-	@PostMapping("/Abooking/{otp}")
-	public ResponseEntity<Ticket> makeBookingHandler(@RequestBody Booking booking,@RequestParam String key,@PathVariable("otp")Integer otp)throws BookingException,LoginException {
-		return new ResponseEntity<Ticket>(bookingService.makeBooking(booking,key,otp), HttpStatus.CREATED);
-	}
-
-	@DeleteMapping("/Abooking/{id}")
-	public ResponseEntity<Ticket> cancelBookingByIdHandler(@PathVariable("id") Integer id,@RequestParam String key)throws BookingException,LoginException {
-		return new ResponseEntity<>(bookingService.cancelBooking(id,key), HttpStatus.OK);
-	}
-
-	@GetMapping("/Abooking/{id}")
-	public ResponseEntity<Booking> viewBookingByIdHandler(@PathVariable("id") Integer id,@RequestParam String key)throws BookingException,LoginException {
-		return new ResponseEntity<Booking>(bookingService.viewBooking(id,key), HttpStatus.OK);
-	}
-	
-	@GetMapping("/listOfBooking")
-	public ResponseEntity<List<Booking>> viewAllBookingHandler(@RequestParam String key)throws BookingException,LoginException {
-		return new ResponseEntity<List<Booking>>(bookingService.viewAllBooking(key), HttpStatus.OK);
-	}
+//	@PostMapping("/Abooking/{otp}")
+//	public ResponseEntity<Ticket> makeBookingHandler(@RequestBody Booking booking,@RequestParam String key,@PathVariable("otp")Integer otp)throws BookingException,LoginException {
+//		return new ResponseEntity<Ticket>(bookingService.makeBooking(booking,key,otp), HttpStatus.CREATED);
+//	}
+//
+//	@DeleteMapping("/Abooking/{id}")
+//	public ResponseEntity<Ticket> cancelBookingByIdHandler(@PathVariable("id") Integer id,@RequestParam String key)throws BookingException,LoginException {
+//		return new ResponseEntity<>(bookingService.cancelBooking(id,key), HttpStatus.OK);
+//	}
+//
+//	@GetMapping("/Abooking/{id}")
+//	public ResponseEntity<Booking> viewBookingByIdHandler(@PathVariable("id") Integer id,@RequestParam String key)throws BookingException,LoginException {
+//		return new ResponseEntity<Booking>(bookingService.viewBooking(id,key), HttpStatus.OK);
+//	}
+//	
+//	@GetMapping("/listOfBooking")
+//	public ResponseEntity<List<Booking>> viewAllBookingHandler(@RequestParam String key)throws BookingException,LoginException {
+//		return new ResponseEntity<List<Booking>>(bookingService.viewAllBooking(key), HttpStatus.OK);
+//	}
 	
 }

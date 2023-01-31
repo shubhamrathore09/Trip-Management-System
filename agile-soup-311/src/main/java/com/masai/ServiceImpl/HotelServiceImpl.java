@@ -141,7 +141,7 @@ public class HotelServiceImpl implements HotelService{
 
 
 	@Override
-	public Hotel viewHotelByCode(Integer hoteCode, String key) throws HotelException, LoginException {
+	public Hotel viewHotelByCode(String hoteCode, String key) throws HotelException, LoginException {
 		
 		CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
 		if(currentLoginSession==null) {
@@ -177,7 +177,7 @@ public class HotelServiceImpl implements HotelService{
 
 
 	@Override
-	public String BookHotel(Integer hotelCode, String key) throws HotelException, LoginException {
+	public String BookHotel(String hotelCode, String key) throws HotelException, LoginException {
 		// TODO Auto-generated method stub
 		
 		CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
@@ -189,6 +189,8 @@ public class HotelServiceImpl implements HotelService{
 		
 		return null;
 	}
+
+
 
 
 

@@ -18,7 +18,7 @@ import java.util.*;
 
 public interface AdminService {
 	
-	public Admin InsertAdmin(Admin admin)throws AdminException;
+	public Admin InsertAdmin(Admin admin,Integer code)throws AdminException;
 	public Admin GetAdminById(Integer id,String key)throws AdminException,LoginException;
 	
 	public List<CustomerDTO> GetAllCustomerDetails(String key)throws CustomerException,LoginException;

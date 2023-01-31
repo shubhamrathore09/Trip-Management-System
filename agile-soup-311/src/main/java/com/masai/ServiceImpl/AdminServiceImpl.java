@@ -43,13 +43,18 @@ public class AdminServiceImpl implements AdminService{
 
 
 	@Override
-	public Admin InsertAdmin(Admin admin) throws AdminException {
+	public Admin InsertAdmin(Admin admin,Integer code) throws AdminException {
 		
 		Admin admin2=adminRepo.findByAdminMobile(admin.getAdminMobile());
 		
 		if(admin2==null) {
-		
+			
+			if(code==0000) {
 			return adminRepo.save(admin);
+			}
+			else {
+				throw new AdminException("please enter the code for ragistration");
+			}
 		}
 		
 		throw new AdminException("admin already present by that number");

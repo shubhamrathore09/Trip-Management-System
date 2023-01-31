@@ -36,7 +36,8 @@ public class PackageServiceImpl implements PackageService{
 	private CurrentSessionRepo currentSessionRepo;
 	@Override
 	public PackageModule addPackage(PackageModule p,String key) throws PackageException,LoginException,BusException,HotelException {
-	CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
+	
+		CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
 		
 		if(currentLoginSession==null) {
 			throw new LoginException("You have to login first");

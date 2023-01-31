@@ -30,25 +30,25 @@ public class BusController {
 	private BusService busService;
 	
 
-	@PostMapping("/Bus")
+	@PostMapping("/AdminRegisterBus")
 	public ResponseEntity<Bus> RegistorBusHandler(@RequestBody Bus bus,@RequestParam String key)throws BusException,LoginException{
 		Bus bus2=busService.RegistorBus(bus, key);
 		return new ResponseEntity<Bus>(bus2,HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/Bus/{id}")
+	@GetMapping("/GetBusById/{id}")
 	public ResponseEntity<Bus> GetBusByIdHandler(@PathVariable Integer id ,@RequestParam String key)throws BusException,LoginException{
 		Bus bus2=busService.GetBusById(id, key);
 		return new ResponseEntity<Bus>(bus2,HttpStatus.OK);
 	}
 	
-	@GetMapping("/Buses")
+	@GetMapping("/GetAllBuses")
 	public ResponseEntity<List<Bus>> GetAllBusHandler(@RequestParam String key)throws BusException,LoginException{
 		List<Bus> bus2=busService.getAllTheBuses(key);
 		return new ResponseEntity<List<Bus>>(bus2,HttpStatus.CREATED);
 	}
 	
-	@DeleteMapping("/Bus/{id}")
+	@DeleteMapping("/AdminDeleteBusById/{id}")
 	public ResponseEntity<String> DeleteBusByIdHandler(@PathVariable Integer id ,@RequestParam String key)throws BusException,LoginException{
 		String msg=busService.RemoveBus(id, key);
 		return new ResponseEntity<String>(msg,HttpStatus.OK);
@@ -61,7 +61,7 @@ public class BusController {
 //		return new ResponseEntity<>(msg,HttpStatus.CREATED);
 //	}
 	
-	@GetMapping("/customerBus")
+	@GetMapping("/GetBusByRoutes")
 	public ResponseEntity<Set<Bus>> getAllBusBySourceToHandler(@RequestParam String routeFrom,String routeTo,String key,@DateTimeFormat(iso = ISO.DATE)  LocalDate date)throws LoginException,RouteException,BusException{
 		Set<Bus> set=busService.getBusBySourceAndDestincation(routeFrom, routeTo, key,date);
 		return new ResponseEntity<Set<Bus>>(set,HttpStatus.OK);

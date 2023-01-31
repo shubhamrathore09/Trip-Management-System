@@ -51,25 +51,25 @@ public class CustomerController {
 	private BookingService bookingService;
 	
 	
-	@PostMapping("/customer")
+	@PostMapping("/RegisterCustomer")
 	public ResponseEntity<Customer> Ragistraion(@Valid @RequestBody Customer customer)throws CustomerException{
 		Customer customer2=customerService.Ragistration(customer);
 		return new ResponseEntity<Customer>(customer2,HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/customer/{id}")
+	@GetMapping("/GetCustomerById/{id}")
 	public ResponseEntity<Customer>GetCustomerDetailsByIdHandler(@PathVariable Integer id,@RequestParam String key)throws CustomerException,LoginException{
 		Customer customer=customerService.getCustomerDetailsById(id,key);
 		return new ResponseEntity<Customer>(customer,HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/customer")
+	@DeleteMapping("/DeleteCustomerById")
 	public ResponseEntity<String>deleteCustomerhandler(@RequestBody LoginDTO loginDTO,@RequestParam String key)throws CustomerException,LoginException{
 		String msg=customerService.deleteByMobileAndPassword(loginDTO,key);
 		return new ResponseEntity<String>(msg,HttpStatus.OK);
 	}
 	
-	@PutMapping("/customer")
+	@PutMapping("/UpdateCustomerById")
 	public ResponseEntity<String> ChangePasswordHandler(@RequestParam String oldPassword,@RequestParam String newPassword, @RequestParam String key)
 	throws LoginException,CustomerException
 	{
@@ -78,55 +78,5 @@ public class CustomerController {
 	}
 	
 																		
-//	@GetMapping("/customerBus")
-//	public ResponseEntity<Set<Bus>> getAllBusBySourceToHandler(@RequestParam String routeFrom,String routeTo,String key,@DateTimeFormat(iso = ISO.DATE)  LocalDate date)throws LoginException,RouteException,BusException{
-//		Set<Bus> set=customerService.getBusBySourceAndDestincation(routeFrom, routeTo, key,date);
-//		return new ResponseEntity<Set<Bus>>(set,HttpStatus.OK);
-//	}
-	
-	@PutMapping("/CustomerTicket")
-	public ResponseEntity<String>BookTicketOfBusHandler(@RequestParam Integer quantity, @RequestParam String key,@RequestParam String BusNumber)
-	throws LoginException,BusException{
-		String msg=customerService.BookTicket(quantity, key, BusNumber);
-		return new ResponseEntity<String>(msg,HttpStatus.OK);
-	}
-	
-	
-//	------------------------------------Hotel---------------------------------------------
-	
-	
-//	@GetMapping("/customerHotel/{id}")
-//	public ResponseEntity<Hotel>GetHotelByIdHandler(@Valid @PathVariable("id")Integer id,@RequestParam String key) throws HotelException, LoginException{
-//	return new ResponseEntity<Hotel>(customerService.viewHotelById(id, key),HttpStatus.OK);
-//	}
-//	
-//	@GetMapping("/customerHotels")
-//	public ResponseEntity<List<Hotel>>GetAllHotelIdHandler(@RequestParam String key) throws HotelException, LoginException{
-//	return new ResponseEntity<List<Hotel>>(customerService.viewAllHotel(key),HttpStatus.OK);
-//	}
-
-//--------------------------------------Booking-----------------------------------------------
-	
-	
-
-	
-
-	@PostMapping("/booking/{otp}")
-	public ResponseEntity<Ticket> makeBookingHandler(@RequestBody Booking booking,@RequestParam String key,@PathVariable("otp") Integer otp)throws BookingException,LoginException {
-		return new ResponseEntity<Ticket>(bookingService.makeBooking(booking,key,otp), HttpStatus.CREATED);
-	}
-
-	@DeleteMapping("/booking/{id}")
-	public ResponseEntity<Ticket> cancelBookingByIdHandler(@PathVariable("id") Integer id,@RequestParam String key)throws BookingException,LoginException {
-		return new ResponseEntity<>(bookingService.cancelBooking(id,key), HttpStatus.OK);
-	}
-
-	@GetMapping("/booking/{id}")
-	public ResponseEntity<Booking> viewBookingByIdHandler(@PathVariable("id") Integer id,@RequestParam String key)throws BookingException,LoginException {
-		return new ResponseEntity<Booking>(bookingService.viewBooking(id,key), HttpStatus.OK);
-	}
-	
-	
-	
 	
 }

@@ -24,21 +24,21 @@ public class RouteController {
 	@Autowired
 	private RouteService routeService;
 	
-	@PostMapping("/route")
+	@PostMapping("/AdminAddRoute")
 	public ResponseEntity<Routes> addRoutesHandler(@RequestParam String key,@Valid @RequestBody Routes route)throws LoginException{
 		return new ResponseEntity<>(routeService.addRoute(route,key),HttpStatus.CREATED);
 	}
 		
-	@DeleteMapping("/route/{id}")
+	@DeleteMapping("/AdminDeleteRouteById/{id}")
 	public ResponseEntity<String> deleteRoutesHandler(@RequestParam String key,@Valid @PathVariable("id") Integer id)throws LoginException{
 		return new ResponseEntity<>(routeService.DeleteRoute(id,key),HttpStatus.OK);
 	}
-	@GetMapping("/routes")
+	@GetMapping("/GetAllRoutes")
 	public ResponseEntity<List<Routes>> getAllRoutesHandler(@RequestParam String key)throws LoginException{
 		return new ResponseEntity<>(routeService.routes(key),HttpStatus.OK);
 	}
 	
-	@GetMapping("/route/{id}")
+	@GetMapping("/GetRouteById/{id}")
 	public ResponseEntity<Routes> getRouteByIdHandler(@RequestParam String key,@Valid @PathVariable("id") Integer id)throws LoginException{
 	  	return new ResponseEntity<>(routeService.findById(id,key),HttpStatus.OK);
 	}

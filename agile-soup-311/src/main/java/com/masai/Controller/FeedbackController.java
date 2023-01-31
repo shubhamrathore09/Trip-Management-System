@@ -31,7 +31,8 @@ public class FeedbackController {
 	public ResponseEntity<Feedback> addNewFeedback(@Valid @RequestBody  Feedback feedback,@PathVariable("key") String key)throws FeedbackException{
 		
 		
-		return new ResponseEntity<>(feedbackService.addFeedback(feedback,key),HttpStatus.CREATED);
+//		return new ResponseEntity<>(feedbackService.addFeedback(feedback,key),HttpStatus.CREATED);
+		return null;
 		
 	}
 	
@@ -41,21 +42,24 @@ public class FeedbackController {
 	{
 		
 		
-		return new ResponseEntity<Feedback>(feedbackService.findByFeedbackId(feedbackId),HttpStatus.ACCEPTED);
+//		return new ResponseEntity<Feedback>(feedbackService.findByFeedbackId(feedbackId),HttpStatus.ACCEPTED);
+		return null;
 	}
 	
 	@GetMapping("/find/{key}/{customerId}")
 	public ResponseEntity<List<Feedback>> findByCustomerId(@PathVariable("customerId") Integer customerId,@PathVariable("key") String key) throws FeedbackException
 	{
 		
-		return new ResponseEntity<List<Feedback>>(feedbackService.findByCustomerId(customerId, key),HttpStatus.ACCEPTED);
+//		return new ResponseEntity<List<Feedback>>(feedbackService.findByCustomerId(customerId, key),HttpStatus.ACCEPTED);
+		return null;
 	}
 	
 	@GetMapping("/getAllFeedback/{key}")
 	public ResponseEntity<List<Feedback>> viewAllFeedbacks(@PathVariable("key") String key) throws FeedbackException
 	{
 		
-		return new ResponseEntity<List<Feedback>>(feedbackService.viewAllFeedbacks(key),HttpStatus.ACCEPTED);
+//		return new ResponseEntity<List<Feedback>>(feedbackService.viewAllFeedbacks(key),HttpStatus.ACCEPTED);
+		return null;
 	}
 
 	

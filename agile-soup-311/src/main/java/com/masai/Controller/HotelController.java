@@ -27,27 +27,27 @@ public class HotelController {
 	@Autowired
 	private HotelService hotelService;
 
-	@PostMapping("/adminHotel")
+	@PostMapping("/AdminAddHotel")
 	public ResponseEntity<Hotel> ragistorHotelHandler(@Valid @RequestBody Hotel hotel,@RequestParam String key) throws HotelException, LoginException{
 	return new ResponseEntity<Hotel>(hotelService.ragistorHotel(hotel, key),HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/adminHotel")
+	@PutMapping("/AdminUpdateHotel")
 	public ResponseEntity<Hotel>UpdateHotelHandler(@Valid @RequestBody Hotel hotel,@RequestParam String key) throws HotelException, LoginException{
 	return new ResponseEntity<Hotel>(hotelService.updateHotel(hotel, key),HttpStatus.OK);
 	}
 	
-	@GetMapping("/Hotel/{id}")
+	@GetMapping("/GetHotelById/{id}")
 	public ResponseEntity<Hotel>GetHotelByIdHandler(@Valid @PathVariable("id")Integer id,@RequestParam String key) throws HotelException, LoginException{
 	return new ResponseEntity<Hotel>(hotelService.viewHotelById(id, key),HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/adminHotel/{id}")
+	@DeleteMapping("/adminDeleteHotel/{id}")
 	public ResponseEntity<String>DeleteHotelByIdHandler(@Valid @PathVariable("id")Integer id,@RequestParam String key) throws HotelException, LoginException{
 	return new ResponseEntity<String>(hotelService.deleteHotelById(id, key),HttpStatus.OK);
 	}
 	
-	@GetMapping("/Hotels")
+	@GetMapping("/GetAllHotels")
 	public ResponseEntity<List<Hotel>>GetAllHotelIdHandler(@RequestParam String key) throws HotelException, LoginException{
 	return new ResponseEntity<List<Hotel>>(hotelService.viewAllHotel(key),HttpStatus.OK);
 	}
@@ -62,8 +62,8 @@ public class HotelController {
 	return new ResponseEntity<List<Hotel>>(hotelService.viewHotelByFare(lowerAmount,higherAmount,key),HttpStatus.OK);
 	}
 	
-	@GetMapping("/HotelByCode/{code}")
-	public ResponseEntity<Hotel>GetHotelByCodeHandler(@Valid @PathVariable("code")Integer code,@RequestParam String key) throws HotelException, LoginException{
+	@GetMapping("/HotelByHotelCode/{code}")
+	public ResponseEntity<Hotel>GetHotelByCodeHandler(@Valid @PathVariable("code")String code,@RequestParam String key) throws HotelException, LoginException{
 	return new ResponseEntity<Hotel>(hotelService.viewHotelByCode(code, key),HttpStatus.OK);
 	}
 	

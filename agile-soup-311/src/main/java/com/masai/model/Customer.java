@@ -49,7 +49,5 @@ public class Customer {
 
 	
 	
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "customer")
-	private List<Feedback> feedbacks = new ArrayList<>();
+	
 }

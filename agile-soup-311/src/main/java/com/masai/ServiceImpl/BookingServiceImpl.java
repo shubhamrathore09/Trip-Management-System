@@ -34,6 +34,7 @@ public class BookingServiceImpl implements BookingService{
 
 	@Autowired
 	private CurrentSessionRepo currentSessionRepo;
+	
 	@Override
 	public Ticket makeBooking(Booking booking,String key,Integer otp) throws BookingException,LoginException {
 		
@@ -85,8 +86,8 @@ public class BookingServiceImpl implements BookingService{
 			 
 			 	return ticket2;
 		}
+		
 		throw new BookingException("only quantity are avaialble "+bus.getAvailableSeats());
-	
 		
 	}
 
@@ -141,7 +142,7 @@ public class BookingServiceImpl implements BookingService{
 	}
 
 	@Override
-	public Booking viewBooking(Integer id,String key) throws BookingException,LoginException {
+	public Ticket viewBooking(Integer id,String key) throws BookingException,LoginException {
 		CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
 		if(currentLoginSession==null) {
 			throw new LoginException("You have to login first");
@@ -159,18 +160,24 @@ public class BookingServiceImpl implements BookingService{
 		
 		Booking b=booking.get();
 		
-		if(b.getBookingMobileNumber().equals(currentLoginSession.getUserMobile()) || currentLoginSession.getUserType().equals("ADMIN")) {
-			return b;
-		}else {
-			throw new LoginException("Login with ordered account");
-		}
+		return ticket; 
 		
+//		if(b.getBookingMobileNumber().equals(currentLoginSession.getUserMobile()) || currentLoginSession.getUserType().equals("ADMIN")) {
+//			return b;
+//		}else {
+//			throw new LoginException("Login with ordered account");
+//		}
+//		
 		
 	}
 
 	@Override
 	public List<Booking> viewAllBooking(String key) throws BookingException,LoginException {
+		
 		CurrentLoginSession currentLoginSession=currentSessionRepo.findByUserKey(key);
+		
+		
+		
 		if(currentLoginSession==null) {
 			throw new LoginException("You have to login first");
 		}

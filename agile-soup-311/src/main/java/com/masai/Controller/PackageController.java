@@ -2,6 +2,7 @@ package com.masai.Controller;
 
 import java.util.List;
 
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,28 +25,27 @@ import com.masai.Service.PackageService;
 import com.masai.model.PackageModule;
 
 @RestController
-@RequestMapping("/packages")
 public class PackageController {
 
 	@Autowired
 	private PackageService packageService;
 
-	@PostMapping("/package")
+	@PostMapping("/AdminAddPackage")
 	public ResponseEntity<PackageModule> addPackageHandler(@Valid @RequestBody PackageModule pack,@RequestParam String key) throws PackageException, LoginException, HotelException, BusException {
 		return new ResponseEntity<PackageModule>(packageService.addPackage(pack,key), HttpStatus.CREATED);
 	}
 
-	@DeleteMapping("/package/{id}")
+	@DeleteMapping("/AdminDeletePackageById/{id}")
 	public ResponseEntity<PackageModule> deletePackageByIdHandler(@PathVariable("id") Integer id,@RequestParam String key) throws PackageException, LoginException {
 		return new ResponseEntity<PackageModule>(packageService.deletePackage(id,key), HttpStatus.OK); 
 	}
 
-	@GetMapping("/package/{id}")
+	@GetMapping("/GetPackageById/{id}")
 	public ResponseEntity<PackageModule> searchPackageByIdHandler(@PathVariable("id") Integer id,@RequestParam String key) throws PackageException, LoginException {
 		return new ResponseEntity<PackageModule>(packageService.searchPackage(id,key), HttpStatus.OK);
 	}
 
-	@GetMapping("/viewListOfPackage")
+	@GetMapping("/GetAllPackages")
 	public ResponseEntity<List<PackageModule>> viewAllPackageHandler(@RequestParam String key) throws PackageException, LoginException {
 		return new ResponseEntity<List<PackageModule>>(packageService.viewAllPackages(key), HttpStatus.OK);
 	}

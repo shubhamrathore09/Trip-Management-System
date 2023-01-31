@@ -6,11 +6,14 @@ import java.sql.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -35,15 +38,18 @@ public class Feedback {
 	@NotNull
 	private String feedback;
 	
+	@Enumerated
+	private FeedBackType feedBackType;
+	
+	@Min(value = 1,message = "Minimum value is 1")
+	@Max(value = 5, message = "max value is 5")
 	@NotNull
-	private Double rating;
+	private Integer rating;
 	
 	@NotNull
 	private Date submitDate;
 
-	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
-	
-	private Customer customer;
+	@NotNull
+	private Integer PersonId;
 	
 }

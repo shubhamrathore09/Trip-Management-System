@@ -12,7 +12,7 @@ public interface BookingService {
 	
 	public Ticket cancelBooking(Integer id,String key) throws BookingException,LoginException;
 	
-	public Booking viewBooking(Integer id,String key) throws BookingException,LoginException;
+	public Ticket viewBooking(Integer id,String key) throws BookingException,LoginException;
 	
 	public List<Booking> viewAllBooking(String key) throws BookingException,LoginException;
 }

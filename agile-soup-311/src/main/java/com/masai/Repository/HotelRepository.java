@@ -9,7 +9,7 @@ import com.masai.model.Hotel;
 
 public interface HotelRepository extends JpaRepository<Hotel, Integer> {
 
-	public Hotel findByHotelCode(Integer hotelCode);
+	public Hotel findByHotelCode(String hotelCode);
 
 	public List<Hotel> findByAddress(String address);
 	
